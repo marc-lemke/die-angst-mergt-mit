@@ -471,7 +471,7 @@
         
   
   <span class="md-ellipsis">
-    4 Elemente im Working Tree nicht zur History hinzufügen müssen, aber trotzdem sicher behalten (gitignore und stash)
+    upcoming --> 4 Elemente im Working Tree nicht zur History hinzufügen müssen, aber trotzdem sicher behalten (gitignore und stash)
   </span>
   
 
@@ -491,7 +491,7 @@
         
   
   <span class="md-ellipsis">
-    5 Branches amlegem, pushen und löschen
+    upcoming --> 5 Branches anlegen, pushen und löschen
   </span>
   
 
@@ -511,7 +511,7 @@
         
   
   <span class="md-ellipsis">
-    6 Dateien vom Index entfernen
+    upcoming --> 6 Dateien vom Index entfernen
   </span>
   
 
@@ -531,7 +531,7 @@
         
   
   <span class="md-ellipsis">
-    7 Fehler rückgängig machen
+    upcoming --> 7 Fehler rückgängig machen
   </span>
   
 
@@ -551,7 +551,7 @@
         
   
   <span class="md-ellipsis">
-    8 Schnelle Übersicht über ein Repo bekommen (History, Branches, HEAD)
+    upcoming --> 8 Schnelle Übersicht über ein Repo bekommen (History, Branches, HEAD)
   </span>
   
 
@@ -571,7 +571,7 @@
         
   
   <span class="md-ellipsis">
-    9 Konflikte beim Mergen
+    upcoming --> 9 Konflikte beim Mergen
   </span>
   
 
@@ -591,7 +591,7 @@
         
   
   <span class="md-ellipsis">
-    10 Mit einem detached HEAD arbeiten
+    upcoming --> 10 Mit einem detached HEAD arbeiten
   </span>
   
 
@@ -611,7 +611,7 @@
         
   
   <span class="md-ellipsis">
-    11 Mit mehreren Remote-Repositorien arbeiten
+    upcoming --> 11 Mit mehreren Remote-Repositorien arbeiten
   </span>
   
 
@@ -631,7 +631,7 @@
         
   
   <span class="md-ellipsis">
-    12 Unterschiede zwischen Datei-Versionen anzeigen (diff und blame)
+    upcoming --> 12 Unterschiede zwischen Datei-Versionen anzeigen (diff und blame)
   </span>
   
 
@@ -682,13 +682,13 @@
 
 
 <h1 id="getting-started">Getting started</h1>
-<p>Dieses Tutorial ist eine <em>do it yourself</em>-Anleitung: Hier baut ihr euch lokal eine Struktur aus drei Repositorien auf, die die übliche Arbeitssituation mit Online-Repositorien simuliert. Wenn ihr an diesem Punkt euch fragt, wovon ich überhaupt rede: Keine Sorge, eine aufeinander aufbauende Erläuterung von Git-Begriffen findet ihr im Abschnitt <a href="../was-ist/">Was ist ...?</a>. Aber zu Beginn: Folgt einfach ersteinmal der Anleitung Schritt für Schritt und erstellt die Experimentalumgebung.</p>
+<p>Dieses Tutorial ist eine <em>do it yourself</em>-Anleitung: Hier baut ihr euch lokal eine Struktur aus drei Repositorien auf, die die übliche Arbeitssituation mit Online-Repositorien simuliert. Wenn ihr an diesem Punkt euch fragt, wovon ich überhaupt rede: Keine Sorge, eine aufeinander aufbauende Erläuterung von Git-Begriffen findet ihr im Abschnitt <a href="../was-ist/">Was ist ...?</a>. Aber zu Beginn: Folgt einfach erst einmal der Anleitung Schritt für Schritt und erstellt die Experimentalumgebung.</p>
 <ul>
 <li>Installiert euch <a href="https://git-scm.com/downloads">Git für euer Betriebssystem</a> auf eurem Rechner.</li>
 <li>Öffnet ein Terminal mit Kommandozeile (<em>Git Bash</em> in Windows) und testet die Git-Installation: <code>git --version</code> sollte eine Versionsnummer ausgeben.</li>
 <li>Erzeugt einen Tutorial-Ordner irgendwo auf eurem System und öffnet diesen Ordner im Terminal.</li>
 <li>Initialisiert dort ein blankes (englisch: bare) Repository: <code>git init --bare an-online-repo.git</code>.</li>
-<li>Erzeugt zwei weitere Ordner im Tutorial-Ordner: <code>userA</code> und <code>userB</code>.</li>
+<li>Erzeugt zwei weitere Ordner im Tutorial-Ordner: <code>mkdir userA</code> und <code>mkdir userB</code>.</li>
 <li>Wechselt im Terminal in einen der User-Ordner und klont das "Online"-Repo dort hinein: <code>git clone ../an-online-repo.git</code>.</li>
 <li>Wiederholt den vorigen Schritt im anderen User-Ordner.</li>
 <li>Wechselt im Terminal in einen der durch Klonen erzeugten Repo-Ordner <code>/an-online-repo</code>.</li>
