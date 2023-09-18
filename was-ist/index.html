@@ -1,0 +1,1059 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../getting-started/">
+      
+      
+        <link rel="next" href="../cheat-sheets/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.3">
+    
+    
+      
+        <title>Was ist ... ? - 'Die Angst mergt mit' - ein Git-Tutorial</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.0e669242.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#was-ist" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="&#39;Die Angst mergt mit&#39; - ein Git-Tutorial" class="md-header__button md-logo" aria-label="'Die Angst mergt mit' - ein Git-Tutorial" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            'Die Angst mergt mit' - ein Git-Tutorial
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Was ist ... ?
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+    
+  
+  Intro
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../getting-started/" class="md-tabs__link">
+        
+  
+    
+  
+  Getting started
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+    
+  
+  Was ist ... ?
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../cheat-sheets/" class="md-tabs__link">
+        
+  
+    
+  
+  Cheat Sheets
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../experimente/1-ein-einfacher-kollaborativer-git-workflow/" class="md-tabs__link">
+          
+  
+  Experimente
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="&#39;Die Angst mergt mit&#39; - ein Git-Tutorial" class="md-nav__button md-logo" aria-label="'Die Angst mergt mit' - ein Git-Tutorial" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    'Die Angst mergt mit' - ein Git-Tutorial
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Intro
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Was ist ... ?
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Was ist ... ?
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#git" class="md-nav__link">
+    ... Git?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ein-repository" class="md-nav__link">
+    ... ein Repository?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ein-bare-repository" class="md-nav__link">
+    ... ein bare-Repository?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#der-working-tree" class="md-nav__link">
+    ... der Working Tree?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ein-commit" class="md-nav__link">
+    ... ein Commit?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ein-blob" class="md-nav__link">
+    ... ein Blob?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ein-tree" class="md-nav__link">
+    ... ein Tree?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tracking" class="md-nav__link">
+    ... Tracking?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#staging-und-der-index" class="md-nav__link">
+    ... Staging und der Index?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ein-branch" class="md-nav__link">
+    ... ein Branch?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#head" class="md-nav__link">
+    ... HEAD?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mergen" class="md-nav__link">
+    ... mergen?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#die-history" class="md-nav__link">
+    ... die History?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ein-remote-repository" class="md-nav__link">
+    ... ein Remote-Repository?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stashen" class="md-nav__link">
+    ... stashen?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ein-tag" class="md-nav__link">
+    ... ein Tag?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#github-und-gitlab" class="md-nav__link">
+    ... GitHub und GitLab?
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cheat-sheets/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cheat Sheets
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Experimente
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Experimente
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimente/1-ein-einfacher-kollaborativer-git-workflow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1 Ein einfacher kollaborativer Git-Workflow
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimente/2-konfigurationen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2 Konfigurationen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimente/3-aliase/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3 Aliase
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimente/4-elemente-im-working-tree-nicht-zur-history-hinzufuegen-muessen-aber-trotzdem-sicher-behalten-gitignore-und-stash/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4 Elemente im Working Tree nicht zur History hinzufügen müssen, aber trotzdem sicher behalten (gitignore und stash)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimente/5-branches-anlegen-pushen-und-loeschen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5 Branches amlegem, pushen und löschen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimente/6-dateien-vom-index-entfernen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6 Dateien vom Index entfernen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimente/7-fehler-rueckgaengig-machen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7 Fehler rückgängig machen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimente/8-schnelle-uebersicht-ueber-ein-repo-bekommen-history-branches-HEAD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8 Schnelle Übersicht über ein Repo bekommen (History, Branches, HEAD)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimente/9-konflikte-beim-mergen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9 Konflikte beim Mergen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimente/10-mit-einem-detached-HEAD-arbeiten/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10 Mit einem detached HEAD arbeiten
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimente/11-mit-mehreren-remote-repositorien-arbeiten/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11 Mit mehreren Remote-Repositorien arbeiten
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimente/12-unterschiede-zwischen-datei-versionen-anzeigen-diff-und-blame/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12 Unterschiede zwischen Datei-Versionen anzeigen (diff und blame)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#git" class="md-nav__link">
+    ... Git?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ein-repository" class="md-nav__link">
+    ... ein Repository?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ein-bare-repository" class="md-nav__link">
+    ... ein bare-Repository?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#der-working-tree" class="md-nav__link">
+    ... der Working Tree?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ein-commit" class="md-nav__link">
+    ... ein Commit?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ein-blob" class="md-nav__link">
+    ... ein Blob?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ein-tree" class="md-nav__link">
+    ... ein Tree?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tracking" class="md-nav__link">
+    ... Tracking?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#staging-und-der-index" class="md-nav__link">
+    ... Staging und der Index?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ein-branch" class="md-nav__link">
+    ... ein Branch?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#head" class="md-nav__link">
+    ... HEAD?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mergen" class="md-nav__link">
+    ... mergen?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#die-history" class="md-nav__link">
+    ... die History?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ein-remote-repository" class="md-nav__link">
+    ... ein Remote-Repository?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stashen" class="md-nav__link">
+    ... stashen?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ein-tag" class="md-nav__link">
+    ... ein Tag?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#github-und-gitlab" class="md-nav__link">
+    ... GitHub und GitLab?
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="was-ist">Was ist ... ?</h1>
+<h2 id="git">... Git?</h2>
+<p>Git ist ein Versionierungssystem für Dateien in einem Ordner, das zum kollaborativen Arbeiten geeignet ist, aber auch für die Versionierung lokaler Ordner. Anstatt verschiedene Versionen einer Datei händisch etwa durch Dateinamen wie <code>meine_Datei_12februar.xml</code>, <code>meine_Datei_13februar.xml</code>, <code>meine_Datei_13februar_korrigiert.xml</code> und <code>meine_Datei_13februar_korrigiert_final.xml</code> zu unterscheiden, kann man mit Git die Datei zusammen mit ihrer Entwicklung speichern - und zwar so, dass man jeglichen früheren Zustand später wiederherstellen kann, wenn man das möchte. Die Änderungen an der Datei werden bei jedem Eingriff protokolliert: Es wird also, selbst man eine Datei löscht, nie wirklich etwas unwiderbringlich gelöscht, sondern die Löschung wird lediglich protokolliert.</p>
+<h2 id="ein-repository">... ein Repository?</h2>
+<p>Zentrale Organisationseinheit für Git ist das Repository: der versionierte Ordner mit seiner gesamten <strong>History</strong>. In einem üblichen, nicht-blanken Repository liegt diese Geschichte und die gesamte Logik des Repos in dem versteckten Ordner <code>.git</code>. Schaut einmal selbst nach: In den Repo-Ordnern von UserA und UserB (<code>/an-online-repo</code>) könnt ihr dieses Verzeichnis finden. Falls ihr es in Windows mit dem Datei-Explorer nicht seht, achtet darauf unter <em>Ansicht</em> das Häkchen bei <em>Ausgeblendete Elemente</em> zu setzen.</p>
+<p>Da die gesamte Logik im <code>.git</code>-Ordner liegt, bedeutet das auch: Um ein Repo zu löschen, muss nur dieser Ordner gelöscht werden. Um ein Repo zu kopieren, kann der <code>.git</code>-Ordner in einen anderen Ordner kopiert werden. Es wird weiterhin wie gewohnt funktionieren. Der Punkt ist: Mit der Installation von Git auf einem System wird keine zentrale Registry oder dergleichen angelegt, von der aus alle Repos verwaltet werden würden. Jedes Repository ist stattdessen für sich autark.</p>
+<h2 id="ein-bare-repository">... ein bare-Repository?</h2>
+<p>Blanke Repositorien sind dafür gedacht, nur ein Zugriffspunkt zum Teilen von Daten zu sein. Sie besitzen daher keinen <strong>Working Tree</strong> (Arbeitsordner) und keine Verknüpfung zu einem anderen, einem <strong>Remote-Repository</strong>. Sie sind eben selbst reine Remote-Repositorien, die üblicherweise online gespeichert werden. Schaut euch im Vergleich zu den User-Repos nun unser lokales Remote-Repo <code>an-online-repo.git</code> im Tutorial-Ordner an: Ihr könnt diese "Datei" im Terminal oder im Datei-Explorer wie einen Ordner betreten.</p>
+<h2 id="der-working-tree">... der Working Tree?</h2>
+<p>Der Working Tree ist der Ordner, in dem der User in einem herkömmlichen lokalen Repository arbeitet: Hier werden die Dateien des Repos gemäß des aktuellen Repo-Zustandes angezeigt. Denn: Entgegen des herkömmlichen Verständnisses von Ordnern und Dateien (nämlich dass es fragile Elemente sind, die auf Nimmerwiedersehen fort sind, wenn man sie löscht) funktioniert der Working Tree wie eine <strong>Ansicht</strong>: Die eigentliche Speicherung der Daten passiert im versteckten <code>.git</code>-Ordner und je nachdem, welchen Zustand der Daten man sich anschauen möchte, werden die entsprechenden Daten im Working Tree dann angezeigt. Löscht man eine Datei im Working Tree, ist sie damit also nicht aus dem Repository gelöscht.</p>
+<p>Der Working Tree ist aber nicht nur ein Ort zum Ansehen von Daten, sondern auch, um Veränderungen an den Daten in das Repo zu speichern. Änderungen sind also immer eine <strong>Hinzufügung</strong> von Informationen, nichts geht verloren. Was der User zum Speichern von Änderungen tun muss, ist, einen <strong>Commit</strong> vorzubereiten und durchzuführen.</p>
+<h2 id="ein-commit">... ein Commit?</h2>
+<p>Ein Commit ist ein Snapshot, ein Abbild des Zustandes des Working Trees (genauer gesagt: einer Auswahl der Dateien aus dem Working Tree, des <strong>Index</strong>) zu einem bestimmten Zeitpunkt: Er beinhaltet Dateien in Form von <strong>Blobs</strong>, die Ordnerstruktur als <strong>Tree</strong> sowie Meta-Daten zum Commit (Zeitpunkt des Commits, Username, Kommentar). Das heißt, dass Git mit einem Commit nicht nur die Änderungen zu einem früheren Zeitpunkt oder einzelne Dateien speichert, sondern jeweils immer den gesamten Zustand. Probiert es aus: Wechselt im Terminal in eines der User-Repos <code>/an-online-repo</code> und gebt <code>git ls-tree --full-tree -r HEAD</code> ein. Dies listet euch alle Dateien des letzten Commits inklusive Unterordner auf. Wenn ihr noch keinen zweiten Commit angefertigt habt, tut es jetzt: <code>echo # Dies ist eine zweite Readme-Datei&gt;another_readme.md</code>, <code>git add another_readme.md</code> und <code>git commit -m "eine zweite Readme hinzugefügt"</code>. Jetzt gebt noch einmal <code>git ls-tree --full-tree -r HEAD</code>, um euch die Dateien des neuesten Commits anzuschauen: Darin befinden sich beide Readme-Dateien.</p>
+<p>Grundsätzlich bedeutet das also: Wenn eine Datei in einem bestimmten Zustand in irgendeinem Commit gespeichert wurde, kann man diese Datei in diesem bestimmten Zustand jederzeit wieder anzeigen lassen, egal wie der Working Tree im Moment auch aussehen mag. Entscheidend ist, dass die entsprechenden Commits, die die Datei in diesem bestimmten Zustand enthalten, in der <strong>History</strong> des Repos existieren und nicht gelöscht wurden. An dieser Stelle kann schon gesagt werden: Es ist <em>best practice</em>, vergangene Commits nicht zu entfernen, sondern stattdessen unerwünschte Änderungen durch einen weiteren Commit "rückgängig" zu machen. (Dazu dient <code>git revert</code>, mehr dazu siehe unten: <a href="#7-fehler-rückgängig-machen">Experiment #7: Fehler rückgängig machen</a>)</p>
+<h2 id="ein-blob">... ein Blob?</h2>
+<p>Blob (binary large object) ist die Bezeichnung für die git-interne Art und Weise, Dateien in einem Commit zu speichern.</p>
+<h2 id="ein-tree">... ein Tree?</h2>
+<p>Tree ist ein Begriff für Ordner. Der Working Tree ist der Ordner, in dem der User arbeitet. Mit jedem Commit wird auch immer mindestens ein Tree-Objekt gespeichert, nämlich jenes, das alle Dateien (Blobs) und sonstige Ordner (Trees) des Commits enthält und mit <code>git ls-tree</code> angeschaut werden kann.</p>
+<h2 id="tracking">... Tracking?</h2>
+<p>Verändert sich etwas im Working Tree, erkennt Git das: Dateien können in diesem Moment als neu (bisher ungetrackt) oder modifziert (bereits getrackt, aber eben verändert) markiert werden. Tracking meint im eigentlichen und engeren Sinn den Vorgang, die Veränderungen in Dateien zu überwachen, die bereits Teil des letzten Commits waren. Darüberhinaus wird von Git aber auch erkannt, wenn völlig neue Dateien im Working Tree sich befinden, was man auch als eine Form von Tracking im weiteren Sinn verstehen kann.</p>
+<p>Möchte man letzteres für bestimmte Dateien und Ordner verhindern, kann im Working Tree die Datei <code>.gitignore</code> angelegt werden, die eine Liste der Dateien und Ordner enthält, die vom Tracking im weiten Sinne ausgeschlossen werden sollen. So kann man Elemente im Working Tree haben, die nicht zum Repo gehören sollen, etwa sensible Daten.</p>
+<p>Ist jedoch eine Datei bereits Teil des letzten Commits, reicht die Aufnahme in die <code>.gitignore</code>-Liste nicht aus. Dann muss die betreffende Datei noch zusätzlich mittels <code>git rm --cached &lt;Dateiname&gt;</code> aus dem Tracking des Repos (genauer: aus dem <strong>Index</strong>) entfernt werden.</p>
+<h2 id="staging-und-der-index">... Staging und der Index?</h2>
+<p>Zwischen dem Working Tree und der History des Repos mit seinen Commits gibt es noch einen Übergangsbereich: die <em>staging area</em> oder den <em>Index</em>. Hier wird der zukünftige Commit zusammengestellt. Der Index enthält ersteinmal alle Dateien und Ordner des letzten Commits in dem Zustand, in dem sie sich zum Zeitpunkt des letzten Commits befanden. Wenn aber nun eine Datei, die Teil des letzten Commits war, verändert wird, ist sie in diesem neuen Zustand nicht mehr Teil des Index. Die Datei muss in ihrem neuen Zustand also ersteinmal wieder zum Index hinzugefügt, also <em>gestaged</em> werden, möchte man sie in den zukünftigen Commit übernehmen: <code>git add &lt;filename&gt;</code>. Das Gleiche gilt für völlig neue Dateien.</p>
+<p>Ist der gewünschte Commit im Index schließlich wie gewünscht vorbereitet (überprüfbar mit <code>git status</code> oder <code>git diff --name-only --cached</code>, beides zeigt die Veränderungen im Vergleich zum letzten Commit), kann dieser erzeugt und zur History hinzugefügt werden: <code>git commit -m "ein beliebiger Kommentar zum Commit"</code>.</p>
+<h2 id="ein-branch">... ein Branch?</h2>
+<p>Mit Branch (Ast, Abzweigung) wird eine Reihe von zusammengehörigen Commits bezeichnet, deren Ausgangspunkt (oder Basis) ein bestimmter Commit in der History ist. Mit dem allerersten Commit im Repo wird der erste, standardmäßig <code>master</code> genannte Branch, eröffnet. Ab diesem Zeitpunkt können beliebig viele weitere Branches erzeugt werden, die den ersten Commit oder einen zu einem späteren Zeitpunkt erzeugten Commit als Basis verwenden. Die Abbildung zeigt ein Beispiel mit zeitlichem Ablauf: Nachdem auf dem <code>master</code>-Branch die Commits C1 und C2 erzeugt worden sind, wurde auf Basis von C1 ein zweiter Branch <code>feature</code> gestartet und der Commit C3 auf diesem Branch gespeichert. </p>
+<p><img src="../images/grafiken_branch-01.png" alt="Master-Branch und Feature-Branch" title="Master-Branch und Feature-Branch" width="300"/></p>
+<p>Üblicherweise ist immer ein Branch <strong>ausgecheckt</strong>. Das bedeutet, er ist aktiv. Das wiederum heißt zum Einen: Zukünftige Commits werden diesem aktuell ausgecheckten Branch zugeordnet. Und zum Anderen: Im Working Tree sind dann entsprechend die Dateien und Datei-Versionen zu sehen, die zum jüngsten Commit des aktuell ausgecheckten Branches gehören. Der gängige Befehl zum Aktivieren eines Branches lautet <code>git checkout &lt;branchname&gt;</code>.</p>
+<p>Branches sind damit ein Möglichkeit, parallel verschiedene Ansichten des Repos zur Verfügung zu haben: Wechselt man den Branch, wechselt auch die Ansicht im Working Tree. Man sagt auch: Der <strong>HEAD</strong> zeigt auf einen bestimmten Branch.</p>
+<h2 id="head">... HEAD?</h2>
+<p>HEAD ist eigentlich nur ein Verweis, ein Zeiger, der aber darüber bestimmt, welche Daten aktuell im Working Tree angezeigt werden und ob kommende Commits einem Branch bzw. welchem Branch zugeordnet werden. HEAD zeigt üblicherweise auf den aktuell ausgecheckten Branch. Gebt einmal in einem der User-Repos <code>git show</code> ein: Wenn ihr gerade auf dem <code>master</code>-Branch seid, ist in der ersten Zeile der nun angezeigten Nachricht die Information <code>HEAD -&gt; master</code> zu sehen. Der <code>master</code>-Branch ist also gerade aktiv. Es ist jedoch auch möglich, einen bestimmten Commit auszuchecken.</p>
+<p><img src="../images/grafiken_head-01.png" alt="Branch- und Commit-Checkout" title="Branch- und Commit-Checkout" width="700"/></p>
+<p>Dann hat das Repo einen sogenannten <em>detached HEAD</em>: Es ist dann auf keinen Branch mehr eingestellt und zukünftige Commits werden dadurch keinem existierenden Branch mehr zugeordnet. Solche zukünftigen Commits im "luftleeren" bzw. branchleeren Raum existieren also außerhalb der <strong>History</strong> und gehen in dem Moment verloren, wenn wieder einer der breits bestehenden Branches aktiviert wird. Möchte man diese Commits aber doch behalten, kann man für sie einfach einen neuen Branch eröffnen - mit dem aktuell ausgecheckten Commit als Basis. Die zuvor branchlosen Commits sind dann automatisch Teil des neuen Branches.</p>
+<p>Wofür ist das gut? Mit einem detached HEAD zu arbeiten und einen bestimmten Commit auszuchecken, ist genau das Feature, was Git zu einem nützlichen Tool macht: Es bietet die Möglichkeit, einen bestimmten vergangenen Zustand des Repos im Working Tree anzuschauen. Das ist nützlich. Man muss jedoch auch immer im Auge behalten, ob man sich gerade auf einem Branch befindet bzw. auf welchem Branch. Mit <code>git status</code> kann schnell geprüft werden, ob man im Moment einen <em>detached HEAD</em> hat.</p>
+<p>Um einen Commit auszuchecken, braucht man zuvor dessen Hash-Wert: Gebt einmal <code>git log</code> in einem der lokalen Repos ein und werdet für jeden Commit eine lange Reihe an Buchstaben und Zahlen sehen. Das ist ein Hash-Wert, der als ID für den Commit fungiert. Für den checkout-Befehl reicht es aus, die ersten Zeichen dieses Hash-Wertes zu verwenden, sofern es nicht mehrere Commits in der History gibt, deren Hash-Wert mit den gleichen Zeichen beginnen: <code>git checkout 9ffe98</code> würde bei einem Hash-Wert von <code>9ffe980b31a28a9ce2795a1756e87172af48fb24</code> sehr wahrscheinlich genügen.</p>
+<p><code>git log</code> kann eventuell eine längere Liste an Commits anzeigen. Im Terminal wird diese Liste womöglich in Abschnitten angezeigt. Mit <code>Leerzeichen</code> könnt ihr zum nächsten Abschnitt wechseln und mit <code>Q</code> die Listenansicht verlassen.</p>
+<h2 id="mergen">... mergen?</h2>
+<p>Mergen (verschmelzen) ist ein Algorithmus, der zwei Versionen eines Branches (lokal und remote) oder zwei verschiedene Branches (etwa <code>master</code> und einen zweiten Branch) zusammenzuführt. Ersteres ist etwa nötig, wenn mehrere User auf einem Branch arbeiten: UserA macht einen Commit A und pusht ihn. Währenddessen hat UserB lokal bei sich einen anderen Commit B erzeugt, ohne vorher Commit A gefetcht zu haben. Um den Branch danach für alle User auf einen Stand zu bringen, der Commit A und B gleichermaßen enthält, müssen beide Versionen des Branches in einen Commit C gemergt werden. Analog funktioniert es im zweiten Fall, wie in der Grafik zu sehen: Der <code>feature</code>-Branch enthält einen Commit C3, der im <code>master</code> unbekannt ist. Hier wird nun vom <code>master</code> aus gesehen der <code>feature</code>-Branch in den <code>master</code> gemergt, was bedeutet, dass die Änderungen von C3 zusammen mit den Änderungen von C4 (der letzte Commit vor dem Merge) im neuen Commit C5 auf dem <code>master</code>-Branch zusammengebracht werden.</p>
+<p><img src="../images/grafiken_merge-01.png" alt="Merge von einem Feature-Branch in einen Master-Branch" title="Merge von einem Feature-Branch in einen Master-Branch" width="450"/></p>
+<p>Merkmal des Mergens ist in allen Fällen, dass ein neuer Commit erzeugt wird, der alle Änderungen aus den letzten Commits der beiden beteiligten Branches oder Branch-Versionen beinhaltet. Dabei kann es zu Konflikten kommen, die Git entweder automatisch selbst löst oder die der User lösen muss, indem er etwa Dateien, in denen sich Änderungen aus den beteiligten Commits widersprechen, händisch bearbeitet, anschließend speichert und den Merge-Vorgang fortsetzt. Wie das genau funktioniert, könnt ihr im <a href="#9-konflikte-beim-mergen">Experiment zu Merge-Konflikten</a> untersuchen.</p>
+<h2 id="die-history">... die History?</h2>
+<p>Mit History ist die gesamgte Abfolge von Commits, Branch-Eröffnungen und -Schließungen eines Repos gemeint, eben dessen Geschichte, die alle vergangenen Zustände der in den Commits gespeicherten Dateien und Ordner enthält.</p>
+<h2 id="ein-remote-repository">... ein Remote-Repository?</h2>
+<p>In einer Beziehung zwischen lokalem und blanken Remote-Repository ist letzteres das Repository, auf das mit mehreren lokalen Repositorien zugegriffen werden kann. Dafür haben lokale Repositorien ein Verknüpfung mit ihrem Remote, die üblicherweise <code>origin</code> heißt, aber auch unbenannt werden kann. <code>origin</code> ist schlicht ein Alias für eine Pfadangabe. Ein lokales Repo kann sogar Verweise zu mehreren Remotes besitzen, was es etwa erlaubt, Änderungen direkt an mehrere Remote-Repositorien zu schicken.</p>
+<p>Schaut in einem eurer lokalen Repos einmal nach, welche Remote-Pfade vorhanden sind: <code>git remote -v</code>. Zudem könnt ihr euch die Details zu jedem Remote-Pfad anschauen, etwa zu <code>origin</code>: <code>git remote show origin</code>. Die Fetch- und Push-URLs (also die Ziel-URL für Hoch- und Runterladen von Änderungen zu einem Remote-Repo) sehen in unserem Tutorial-Setup etwas merkwürdig aus, beispielsweise: <code>C:/repositories/git_tutorial/UserB/..\an-online-repo.git</code>. Dies kommt durch den Pfad zustande, den wir oben zum Klonen des Remote-Repos verwendet haben. Die zwei Punkte im Pfad bedeuten, in den Parent-Ordner <code>git_tutorial</code> zu wechseln, wo sich das Remote-Repo ja befindet. Im Normalfall der Arbeit mit einem Online-Remote-Repository steckt hinter <code>origin</code> eine Web-URL zu einer <code>.git</code>-Datei.</p>
+<p>Wichtig ist: Insgesamt sorgt die Struktur mit lokalen und Remote-Repositorien dafür, dass es immer zwei Versionen des Repos gibt, nämlich das lokale und das Remote-Repo. Jeder lokale Branch hat also immer ein Remote-Gegenüber, sofern man den lokalen Branch im Remote-Repo veröffentlicht hat. Mit <code>git branch -avv</code> werden alle lokalen Branches und die Verweise auf die bekannten Remote-Branches angezeigt, letztere üblicherweise in Pfadschreibweise: <code>remotes/origin/master</code> ist der Name für den Master-Branch des Remote-Repositories und <code>master</code> ist euer lokaler Master-Branch.</p>
+<p>Die Befehle <code>git fetch</code>, <code>git pull</code> und <code>git push</code> dienen zur Kommunikation mit dem Remote-Repo: <code>fetch</code> lädt die neuesten Änderungen vom Remote herunter, ohne sie auf das lokale Repo anzuwenden. <code>pull</code> fügt die Änderungen im aktuell aktiven Branch mittels merge ein. Und <code>push</code> lädt neue Commits im aktiven lokalen Branch (bzw. sogar den ganzen Branch, falls dieser im Remote noch unbekannt ist) in das Remote-Repo hoch. Im <a href="#1-ein-einfacher-kollaborativer-git-workflow">Experiment #1</a> kann der Umgang mit den Befehlen sich genauer angeschaut werden.</p>
+<h2 id="stashen">... stashen?</h2>
+<p>Hat man Änderungen am Working Tree vorgenommen und vielleicht auch einige davon schon gestaged, möchte diese Änderungen aber noch nicht committen, bietet <code>git stash push</code> die Möglichkeit, die Änderungen zu verbergen und in einer Art Zwischenspeicher abzulegen. Das ist der Stash (Versteck).</p>
+<p>Es ist ein sehr nützliches Feature von Git, falls man zwischendurch in seiner Arbeit am Repo einmal den Branch wechseln möchte. In diesem Fall würden die nicht committeten Änderungen am Working Tree und am Index in dem Moment verloren gehen, wenn man auf einen anderen bereits existierenden Branch mittels <code>git checkout</code> wechselt. Mit dem Stash kann man das Problem umgehen und zu einem späteren Zeitpunkt die Änderungen wieder hervorholen. Wie das genau funktioniert, ist in <a href="#4-elemente-im-working-tree-nicht-zur-history-hinzufügen-müssen-aber-trotzdem-sicher-behalten-gitignore-und-stash">einem der Experimente</a> unten erläutert.</p>
+<h2 id="ein-tag">... ein Tag?</h2>
+<p>Ein Tag ist ein Verweis auf einen bestimmten Commit. Tags können individuell benannt werden und sind also letztlich Aliase, die auch als Parameter des <code>git checkout</code>-Befehls funktionieren, um diesen bestimmten Commit auszuchecken, auf den der Tag verweist. In der Praxis werden Tags häufig zum Markieren von Release-Versionen des Codes bzw. der Daten des Repos verwendet, beispielweise <code>v1.0</code>. Um sich diese Version im Code dann anzuschauen, kann der Commit via Tag ausgecheckt werden: <code>git checkout v1.0</code>.</p>
+<h2 id="github-und-gitlab">... GitHub und GitLab?</h2>
+<p>GitHub und GitLab sind Beispiele für Hosting- und Management-Plattformen für Git-Repositorien. Sie bieten Git-Funktionalitäten und über Git hinausgehende Tools zum kollaborativen Arbeiten hinter einer grafischen Benutzeroberfläche an. Änderungen am Online-Repo können dort direkt im Browser vorgenommen werden: Dateien hinzufügen, löschen, ändern, Branches erstellen, mergen und entfernen. Es ist jedoch auch möglich, ganz ohne die Websites über lokale Klone mit den GitHub- und GitLab-Repositorien zu arbeiten. In speziellen Situationen ist das mitunter sogar gewünscht, da die Implementierungen von Git auf den Plattformen in ihrem Verhalten davon abweichen können, wie Git sich normalerweise verhalten würde (<a href="https://github.com/orgs/community/discussions/52762">Beispiel</a>).</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs"], "search": "../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.78eede0e.min.js"></script>
+      
+    
+  </body>
+</html>

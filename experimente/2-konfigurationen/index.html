@@ -1,0 +1,826 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../1-ein-einfacher-kollaborativer-git-workflow/">
+      
+      
+        <link rel="next" href="../3-aliase/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.3">
+    
+    
+      
+        <title>2 Konfigurationen - 'Die Angst mergt mit' - ein Git-Tutorial</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0e669242.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#2-konfigurationen" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="&#39;Die Angst mergt mit&#39; - ein Git-Tutorial" class="md-header__button md-logo" aria-label="'Die Angst mergt mit' - ein Git-Tutorial" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            'Die Angst mergt mit' - ein Git-Tutorial
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2 Konfigurationen
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Intro
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../getting-started/" class="md-tabs__link">
+        
+  
+    
+  
+  Getting started
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../was-ist/" class="md-tabs__link">
+        
+  
+    
+  
+  Was ist ... ?
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../cheat-sheets/" class="md-tabs__link">
+        
+  
+    
+  
+  Cheat Sheets
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../1-ein-einfacher-kollaborativer-git-workflow/" class="md-tabs__link">
+          
+  
+  Experimente
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="&#39;Die Angst mergt mit&#39; - ein Git-Tutorial" class="md-nav__button md-logo" aria-label="'Die Angst mergt mit' - ein Git-Tutorial" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    'Die Angst mergt mit' - ein Git-Tutorial
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Intro
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../was-ist/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Was ist ... ?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cheat-sheets/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cheat Sheets
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Experimente
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Experimente
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1-ein-einfacher-kollaborativer-git-workflow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1 Ein einfacher kollaborativer Git-Workflow
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    2 Konfigurationen
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    2 Konfigurationen
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#generelles" class="md-nav__link">
+    Generelles
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#einstellungen-andern" class="md-nav__link">
+    Einstellungen ändern
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notwendige-einstellungen" class="md-nav__link">
+    Notwendige Einstellungen
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-aliase/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3 Aliase
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4-elemente-im-working-tree-nicht-zur-history-hinzufuegen-muessen-aber-trotzdem-sicher-behalten-gitignore-und-stash/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4 Elemente im Working Tree nicht zur History hinzufügen müssen, aber trotzdem sicher behalten (gitignore und stash)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5-branches-anlegen-pushen-und-loeschen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5 Branches amlegem, pushen und löschen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6-dateien-vom-index-entfernen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6 Dateien vom Index entfernen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7-fehler-rueckgaengig-machen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7 Fehler rückgängig machen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8-schnelle-uebersicht-ueber-ein-repo-bekommen-history-branches-HEAD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8 Schnelle Übersicht über ein Repo bekommen (History, Branches, HEAD)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9-konflikte-beim-mergen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9 Konflikte beim Mergen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-mit-einem-detached-HEAD-arbeiten/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10 Mit einem detached HEAD arbeiten
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-mit-mehreren-remote-repositorien-arbeiten/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11 Mit mehreren Remote-Repositorien arbeiten
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-unterschiede-zwischen-datei-versionen-anzeigen-diff-und-blame/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12 Unterschiede zwischen Datei-Versionen anzeigen (diff und blame)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#generelles" class="md-nav__link">
+    Generelles
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#einstellungen-andern" class="md-nav__link">
+    Einstellungen ändern
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notwendige-einstellungen" class="md-nav__link">
+    Notwendige Einstellungen
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="2-konfigurationen">2. Konfigurationen</h1>
+<h2 id="generelles">Generelles</h2>
+<p>Git hält auf verschiedenen Ebenen Konfigurationen in Form von Key-Value-Paaren bereit: lokale, globale und systemweite. Erstere betreffen nur jeweils ein Repository und sind entsprechend auch darin gespeichert. Was dort alles eingestellt ist, könnt ihr euch im Vergleich zwischen einem der User-Repos und unserem "Online"-Repo anschauen: <code>git config --local --list</code>. <code>an-online-repo.git</code> könnt ihr im Terminal wie einen Ordner betreten.</p>
+<p>Zu sehen ist hier, dass der Key <code>core.bare</code> im "Online"-Repo den Wert <code>true</code> hat und dass entsprechend nur die User-Repos die Einstellungen <code>remote.origin.url</code>, <code>remote.origin.fetch</code>, <code>branch.master.remote</code> und <code>branch.master.merge</code> besitzen, da das Online-Repo keinen Verweis auf ein Remote-Repo besitzt.</p>
+<p>Globale Konfigurationen betreffen User-relevante Konfigurationen und systemweite Einstellungen betreffen alle übrigen Einstellungen. In der Regel sind das unterschiedliche Einstellungen. Im Falle der User-Daten (<code>user.name</code> und <code>user.email</code>) aber können diese Angaben global und lokal existieren: Die lokalen Angaben überschreiben dann die globalen. Wenn ihr also einen bestimmten Usernamen und eine bestimmte E-Mail-Adresse für eure Arbeit an allen Repos auf eurem System benutzen wollt, definiert die Werte einmal global. Dann müsst ihr sie nicht in jedem Repo neu definieren.</p>
+<p>Um euch gezielt globale und systemweite Konfigurationen anzugucken, gebt im Terminal (egal in welchem Ordner) ein: <code>git config --global --list</code> und <code>git config --system --list</code>. Um euch alle Konfigurationen in einer Liste anzuschauen, tippt <code>git config --list</code>. Da hier die Geltungsebene für die einzelne Einstellung nicht mehr zu erkennen ist, könnt ihr euch hier auch den Pfad zur entsprechenden Konfigurationsdatei mitanzeigen lassen: <code>git config --list --show-origin</code>.</p>
+<h2 id="einstellungen-andern">Einstellungen ändern</h2>
+<p>Mit dem Wissen, wo die Konfigurationsdateien zu finden sind, könnt ihr sie natürlich direkt in einem Editor bearbeiten. Um eine neue Einstellung im Terminal zu setzen, etwa auf globaler Ebene euren Usernamen und eure E-Mail-Adresse, tippt:</p>
+<pre><code>git config --global user.name &quot;Maria Mustermann&quot;
+git config --global user.email &quot;mm@example.com&quot;
+</code></pre>
+<p>Wollt ihr einen Eintrag, etwa für die E-Mail-Adresse, nicht nur überschreiben, sondern löschen, nutzt: <code>git config --global --unset user.email</code>.</p>
+<h2 id="notwendige-einstellungen">Notwendige Einstellungen</h2>
+<p>Zwei Einstellungen sollten in jedem Fall gesetzt und/oder überprüft werden:
+- <code>user.name</code> und <code>user.email</code> (lokal oder global): Ohne diese Werte ist es nicht möglich, einen Commit zu machen.
+- <code>core.autocrlf</code> (system): Diese Werte sollte bei Windows-System auf <code>true</code> und bei allen anderen auf <code>input</code> gesetzt sein. Da Windows-System das Ende einer Zeile in Textdateien anders codieren als Linux- und Mac-System, muss beim kollaborativen Arbeiten gewährleistet sein, dass a) in allen Textdateien die gleiche Zeilenend-Codierung verwendet wird und b) dass alle User lokal in ihrem Working Tree die Textdateien für ihr Betriebssystem korrekt angezeigt bekommen. Ansonsten kann es dazu kommen, dass Änderungen in der Zeilenend-Codierung von Git als Änderungen in der Datei erkannt und gespeichert werden. Damit wird die History mit belanglosen Änderungen geflutet.</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "search": "../../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.78eede0e.min.js"></script>
+      
+    
+  </body>
+</html>

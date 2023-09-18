@@ -1,0 +1,1443 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../cheat-sheets/">
+      
+      
+        <link rel="next" href="../2-konfigurationen/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.3">
+    
+    
+      
+        <title>1 Ein einfacher kollaborativer Git-Workflow - 'Die Angst mergt mit' - ein Git-Tutorial</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0e669242.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-ein-einfacher-kollaborativer-git-workflow" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="&#39;Die Angst mergt mit&#39; - ein Git-Tutorial" class="md-header__button md-logo" aria-label="'Die Angst mergt mit' - ein Git-Tutorial" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            'Die Angst mergt mit' - ein Git-Tutorial
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              1 Ein einfacher kollaborativer Git-Workflow
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Intro
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../getting-started/" class="md-tabs__link">
+        
+  
+    
+  
+  Getting started
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../was-ist/" class="md-tabs__link">
+        
+  
+    
+  
+  Was ist ... ?
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../cheat-sheets/" class="md-tabs__link">
+        
+  
+    
+  
+  Cheat Sheets
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  Experimente
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="&#39;Die Angst mergt mit&#39; - ein Git-Tutorial" class="md-nav__button md-logo" aria-label="'Die Angst mergt mit' - ein Git-Tutorial" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    'Die Angst mergt mit' - ein Git-Tutorial
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Intro
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../was-ist/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Was ist ... ?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cheat-sheets/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cheat Sheets
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Experimente
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Experimente
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    1 Ein einfacher kollaborativer Git-Workflow
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    1 Ein einfacher kollaborativer Git-Workflow
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#szenario-a-text-korpus" class="md-nav__link">
+    Szenario A: Text-Korpus
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#szenario-b-website" class="md-nav__link">
+    Szenario B: Website
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tools-fur-die-arbeit-mit-lokalen-repositorien" class="md-nav__link">
+    Tools für die Arbeit mit lokalen Repositorien
+  </a>
+  
+    <nav class="md-nav" aria-label="Tools für die Arbeit mit lokalen Repositorien">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#git-client-add-on-fur-oxygen-xml-editor" class="md-nav__link">
+    Git Client Add-On für Oxygen XML Editor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visual-studio-code-vscode-mit-git-graph-extension" class="md-nav__link">
+    Visual Studio Code (VSCode) mit Git Graph-Extension
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#github-desktop" class="md-nav__link">
+    GitHub Desktop
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2-konfigurationen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2 Konfigurationen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-aliase/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3 Aliase
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4-elemente-im-working-tree-nicht-zur-history-hinzufuegen-muessen-aber-trotzdem-sicher-behalten-gitignore-und-stash/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4 Elemente im Working Tree nicht zur History hinzufügen müssen, aber trotzdem sicher behalten (gitignore und stash)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5-branches-anlegen-pushen-und-loeschen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5 Branches amlegem, pushen und löschen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6-dateien-vom-index-entfernen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6 Dateien vom Index entfernen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7-fehler-rueckgaengig-machen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7 Fehler rückgängig machen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8-schnelle-uebersicht-ueber-ein-repo-bekommen-history-branches-HEAD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8 Schnelle Übersicht über ein Repo bekommen (History, Branches, HEAD)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9-konflikte-beim-mergen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9 Konflikte beim Mergen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-mit-einem-detached-HEAD-arbeiten/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10 Mit einem detached HEAD arbeiten
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-mit-mehreren-remote-repositorien-arbeiten/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11 Mit mehreren Remote-Repositorien arbeiten
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-unterschiede-zwischen-datei-versionen-anzeigen-diff-und-blame/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12 Unterschiede zwischen Datei-Versionen anzeigen (diff und blame)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#szenario-a-text-korpus" class="md-nav__link">
+    Szenario A: Text-Korpus
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#szenario-b-website" class="md-nav__link">
+    Szenario B: Website
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tools-fur-die-arbeit-mit-lokalen-repositorien" class="md-nav__link">
+    Tools für die Arbeit mit lokalen Repositorien
+  </a>
+  
+    <nav class="md-nav" aria-label="Tools für die Arbeit mit lokalen Repositorien">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#git-client-add-on-fur-oxygen-xml-editor" class="md-nav__link">
+    Git Client Add-On für Oxygen XML Editor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visual-studio-code-vscode-mit-git-graph-extension" class="md-nav__link">
+    Visual Studio Code (VSCode) mit Git Graph-Extension
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#github-desktop" class="md-nav__link">
+    GitHub Desktop
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="1-ein-einfacher-kollaborativer-git-workflow">1. Ein einfacher kollaborativer Git-Workflow</h1>
+<p>Willkommen bei <strong>Experiment #1</strong>! Hier lernst du konkrete Schritte und Routinen kennen, die üblicherweise in kollaborativen Projekten mit Git anfallen. Das Setup entspricht der Konstellation, die du bereits auf deinem Rechner lokal erzeugt hast: Es gibt ein Online-Repo, auf das mehrere User des Projekts mit lokalen Klonen zugreifen. Die konkreten Arbeitsweisen mit Git hängen natürlich auch immer vom Arbeitsmaterial und den Zielen des Projekts ab. Im Folgenden findest du daher zwei exemplarische Projekt-Szenarien: den Aufbau eines Text-Korpus und die Entwicklung einer Website.</p>
+<p>In den Szenarien werden Git-Befehle im Terminal verwendet. Am Ende dieses Experiments stelle ich aber auch noch Tools mit grafischen Benutzeroberflächen vor, die in der täglichen Arbeit mit Git verwendet werden können: das <em>Git Client Add-On</em> für den Oxygen XML Editor, den Code-Editor <em>VSCode</em> mit der <em>Git Graph</em>-Extension und die Software <em>GitHub Desktop</em>.</p>
+<h2 id="szenario-a-text-korpus">Szenario A: Text-Korpus</h2>
+<p>Das Projekt-Team will ein Text-Korpus aufbauen und veröffentlichen, es fallen mehrere Aufgaben an: Textquellen ausfindig machen, Texte auswählen, ein Dateiformat und Textschema für das Korpus definieren, Texte in das gewählte Schema bringen und die Arbeit sowie das Korpus dokumentieren.</p>
+<p>Für das Repo bedeutet das, dass es verschiedene Arten von Dateien gibt:
+- Texte im Quellformat
+- Texte im Projektformat
+- Transformationsskripte
+- Textschema
+- Dokumentationsdateien</p>
+<p>UserA und UserB entscheiden sich dafür, die Aufgaben aufzuteilen: UserA sucht Texte im Quellformat, lädt sie hoch und dokumentiert das Projekt, UserB schreibt Transformationsskripte und erzeugt die Texte im Projektformat. Beide zusammen arbeiten am Textschema und überprüfen die transformierten Texte auf Fehler.</p>
+<p>Wenn die Projektgruppe sehr klein ist und die Aufgaben so verteilt sind, dass es kaum dazu kommt, dass mehrere User die selben Dateien editieren, ist es kein Problem, wenn alle Beteiligten auf dem selben Branch arbeiten: Es wird selten zu Merge-Konflikten kommen. Da man aber plant, das Korpus wie eine Software versioniert zu veröffentlichen, soll das Repo zwei Branches haben: einen Arbeitsbranch und einen, auf dem nur die fertigen Releases gespeichert werden. Unabhängig der Gepflogenheit, den <code>master</code> für Releases zu nutzen und nebenbei einen <code>develop</code>-Branch für die tägliche Arbeit zu haben, werden sie auf dem <code>master</code> arbeiten und für die Veröffentlichungen den Branch <code>releases</code> einrichten: Der <code>master</code> ist in Git kein besonderer Branch, sondern nur eine Benennungskonvention.</p>
+<table>
+<thead>
+<tr>
+<th>User</th>
+<th>Aufgabe</th>
+<th>Ordner/Dateien</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UserA</td>
+<td>Texte im Quellformat suchen und hochladen</td>
+<td>/sources</td>
+</tr>
+<tr>
+<td></td>
+<td>Dokumentation anlegen und pflegen</td>
+<td>/docs + readme.md</td>
+</tr>
+<tr>
+<td>UserB</td>
+<td>Transformationsskripte schreiben</td>
+<td>/scripts</td>
+</tr>
+<tr>
+<td></td>
+<td>Texte im Projektformat erzeugen</td>
+<td>/corpus</td>
+</tr>
+<tr>
+<td>beide</td>
+<td>Textschema definieren</td>
+<td>/scheme</td>
+</tr>
+<tr>
+<td></td>
+<td>Korrekturlesen der Texte</td>
+<td>/corpus</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><img src="../../images/attention_symbol.png" alt="Attention" width="25"/> <em>Jetzt im Terminal in das Repo von UserA wechseln</em></p>
+<p><strong>UserA</strong> hat einen Quelltext gefunden und will ihn zusammen mit einer angefangenen Liste der für das Projekt ausgewählten Texte für die Dokumentation hochladen. Davor aber folgt er einer täglichen Routine:</p>
+<pre><code>## prüfen, auf welchem Branch man sich lokal befindet
+git status
+
+## lokalen Branch auf master wechseln, falls nötig
+git checkout master
+
+## die neuesten Daten vom Remote-Branch herunterladen und direkt in den lokalen Branch einfügen
+git pull
+</code></pre>
+<p>Er legt nun die Ordner <code>/sources</code> und <code>/docs</code> sowie die Dateien <code>text001.txt</code> und <code>textList.csv</code> an. Wir benutzen Dummy-Dateien. Du kannst sie im Explorer oder im Terminal erzeugen:</p>
+<pre><code>mkdir &quot;sources&quot;
+cd sources
+echo Lorem Ipsum&gt;text001.txt
+cd ..
+
+mkdir &quot;docs&quot;
+cd docs
+echo Text,Quelldatei,Quelle&gt;textList.csv
+echo Text001,text001.txt,Projekt Gutenberg&gt;&gt;textList.csv
+cd ..
+</code></pre>
+<p>UserA will die Änderungen nun stagen, commiten und in das Remote-Repo hochladen. Dabei entscheidet er sich dafür, zwei Commits daraus zu machen, da die vorgenommenen Änderungen zwei unterschiedliche Aufgabenbereiche betreffen: Quelltextablage und Dokumentation. Das hat in der Zukunft einen möglichen Vorteil: Entscheidet man sich später dafür, Text001 doch nicht in das Korpus aufzunehmen, kann man dann gezielt den einen Commit rückgängig machen, mit dem die txt-Datei hinzugefügt wurde, ohne zugleich auch die <code>textList.csv</code> mit entfernen zu müssen.</p>
+<p>Übrigens: Mit "einen Commit rückgängig machen" ist nicht löschen gemeint, sondern das Erzeugen eines neuen Commits, der die Änderungen des alten Commits mittels <code>git revert</code> rückgängig macht. Mehr dazu findet ihr im <a href="#7-fehler-rückgängig-machen">Experiment #7</a>. Nun weiter im Text.</p>
+<pre><code>## schauen, welche Veränderungen im Working Tree erkannt worden sind
+git status
+git ls-files --others
+
+## den Text stagen, um ihn zum Commit vorzubereiten
+git add sources/text001.txt
+
+## überprüfen, welche Dateien für den folgenden Commit gestaged sind
+git status
+git diff --name-only --cached
+
+## committen
+git commit -m &quot;Text001-Quelltext hinzugefügt&quot;
+
+## die Textliste stagen
+git add docs/textList.csv
+
+## den zweiten Commit erzeugen
+git commit -m &quot;Textliste hinzugefügt&quot;
+
+## die Commits in das Remote-Repo pushen
+git push
+</code></pre>
+<hr />
+<p><img src="../../images/attention_symbol.png" alt="Attention" width="25"/> <em>Jetzt im Terminal in das Repo von UserB wechseln.</em></p>
+<p><strong>UserB</strong> beginnt danach einen Entwurf für das Textschema zu entwerfen und lädt das Dokument hoch. Wie gehabt, folgt auch er zuvor der vereinbarten Routine:</p>
+<pre><code>## prüfen, auf welchem Branch man sich lokal befindet
+git status
+
+## (Hinweis: Da an dieser Stelle UserB noch keine Updates vom Remote-Repo geholt hat, steht in der Status-Meldung &quot;Your branch is up to date with 'origin/master'&quot;. Die Meldung aktualisiert sich erst nach einem fetch. Verwendet man zum Updaten dagegen pull, werden die Änderungen direkt in den lokalen Branch gemergt, was bewirkt, dass eine anschließende status-Anfrage wiederum ergibt, dass der lokale Branch uptodate ist, was er dann ja auch tatsächlich ist. Zusammengefasst: Der status-Befehl macht keine eigene Abfrage, sondern vergleicht den lokalen Branch mit der zuletzt gefetchten Version des Remote-Branches.)
+
+## lokalen Branch auf master wechseln, falls nötig
+git checkout master
+
+## die neuesten Daten vom Remote-Branch herunterladen und direkt in den lokalen Branch einfügen
+git pull
+
+## (UserB sieht nun die Text-Datei und Text-Liste, die UserA gepusht hat.)
+</code></pre>
+<p>Dummy-Datei anlegen:</p>
+<pre><code>mkdir &quot;scheme&quot;
+cd scheme
+echo a scheme file&gt;project.odd
+cd ..
+</code></pre>
+<p>Stagen, committen und pushen:</p>
+<pre><code>## schauen, welche Veränderungen im Working Tree erkannt worden sind
+git status
+git ls-files --others
+
+## den Text stagen, um ihn zum Commit vorzubereiten
+git add scheme/project.odd
+
+## überprüfen, welche Dateien für den folgenden Commit gestaged sind
+git status
+git diff --name-only --cached
+
+## committen
+git commit -m &quot;erste Version des Schemas hinzugefügt&quot;
+
+## die Commits in das Remote-Repo pushen
+git push
+</code></pre>
+<hr />
+<p><img src="../../images/attention_symbol.png" alt="Attention" width="25"/> <em>Jetzt im Terminal wieder in das Repo von UserA wechseln.</em></p>
+<p><strong>UserA</strong> möchte nun weitere Quelltexte hinzufügen, <code>textList.csv</code> aktualisieren und eine erste Version der <code>readme.md</code> des Repos hochladen. Diesmal aber vergisst er die Routine und pullt nicht den aktuellen Stand des Remote-Repos. Mal schauen, was passiert. Zunächst legen wir wieder die Dummy-Dateien an und aktualisieren <code>textList.csv</code> sowie <code>readme.md</code>. Im Code entferne ich hier die alte <code>readme.md</code> und füge eine neue ein. Für Git ist dies jedoch eine Aktualisierung, da der Dateiname der gleiche ist. Ihr könnt die Änderungen wie gehabt im Datei-Explorer oder im Terminal durchführen.</p>
+<pre><code>cd sources
+echo Lorem Ipsum zum Zweiten&gt;text002.txt
+echo Lorem Ipsum zum Dritten&gt;text003.txt
+cd ..
+
+cd docs
+echo Text002,text002.txt,Projekt Gutenberg&gt;&gt;textList.csv
+echo Text003,text003.txt,DTA&gt;&gt;textList.csv
+cd ..
+
+rm -f readme.md
+echo # Projekt-Korpus&gt;readme.md
+</code></pre>
+<p>Wiederum entscheidet UserA nun, drei Commits aus dem Änderungen zu machen: einen für die Quelltexte, einen für die Aktualisierung der <code>textList.csv</code> und einen für die Aktualisierung der <code>readme.md</code>:</p>
+<pre><code>## schauen, welche Veränderungen im Working Tree erkannt worden sind
+git status
+git ls-files --others
+git ls-files --modified
+
+## die Texte stagen, alle Änderungen im Order &quot;/sources&quot;
+git add sources
+
+## überprüfen, welche Dateien für den folgenden Commit gestaged sind
+git status
+git diff --name-only --cached
+
+## committen
+git commit -m &quot;Quelltexte 2 und 3 hinzugefügt&quot;
+
+## die aktualisierte Textliste stagen, auch als Abkürzung den Ordner &quot;/docs&quot;, da wir alle geänderten Dateien in &quot;/docs&quot; stagen wollen, auch wenn es nur eine ist
+git add docs
+
+## überprüfen, welche Dateien für den folgenden Commit gestaged sind
+git status
+git diff --name-only --cached
+
+## committen
+git commit -m &quot;Texte 2 und 3 zur Textliste hinzugefügt&quot;
+
+## die aktualisierte readme.md stagen
+git add readme.md
+
+## überprüfen, welche Dateien für den folgenden Commit gestaged sind
+git status
+git diff --name-only --cached
+
+## committen
+git commit -m &quot;Entwurf für ernsthafte Repo-Readme&quot;
+</code></pre>
+<p>Nun zum interessanten Teil: <code>git status</code> würde an diesem Punkt die Nachricht <code>Your branch is ahead of 'origin/master' by 3 commits</code> ausgeben. Jedoch hat UserA bekanntlich vergessen, sich den aktuellen Stand vom Remote-Repo zu holen. Er versucht jetzt, seine Änderungen zu pushen, und bekommt folgende Meldung:</p>
+<pre><code> ! [rejected]        master -&gt; master (fetch first)
+error: failed to push some refs to 'D:/repositories/git_tutorial/UserA/..\an-online-repo.git'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+</code></pre>
+<p>Mit <code>git push</code> werden die Wissensstände der Repos (lokal und Remote) miteinander verglichen: Dadurch wurde nun erkannt, dass inzwischen UserB Commits zum Master-Branch des Remote-Repos hinzugefügt hat. Vollautomatisch wird die Situation von Git nicht aufgelöst, da die Kontrolle in diesen Fällen beim User liegen soll.</p>
+<p>Die Lösung für das Problem ist, mit <code>git pull</code> sich den neuesten Stand zu ziehen und lokal diesen Stand mit dem lokalen Stand zu mergen. Das heißt, dass lokal ein neuer Commit erzeugt wird, der den Stand des letzten eigenen lokalen Commits mit dem des letzten Commits aus dem Remote-Repo auf dem <code>master</code>-Branch verbindet. Dieses Vorgehen ist nötig, um zu prüfen, ob die Änderungen von UserA und UserB miteinander kompatibel sind. In diesem Fall ist dieser Merge unproblematisch, da beide User an unterschiedlichen Dateien gearbeiten haben. Versuchen wir es:</p>
+<pre><code>## den neuesten Stand des Remote-Master-Branches ziehen und versuchen, mit dem lokalen Branch zu mergen
+git pull
+
+## der Vorgang wird abgebrochen und wir bekommen als Antwort die Aufforderung, zu entscheiden, mit welcher Methode Git in so einem Fall die Branches auf einen Stand bringen soll
+hint: You have divergent branches and need to specify how to reconcile them.
+hint: You can do so by running one of the following commands sometime before
+hint: your next pull:
+hint:
+hint:   git config pull.rebase false  # merge
+hint:   git config pull.rebase true   # rebase
+hint:   git config pull.ff only       # fast-forward only
+hint:
+hint: You can replace &quot;git config&quot; with &quot;git config --global&quot; to set a default
+hint: preference for all repositories. You can also pass --rebase, --no-rebase,
+hint: or --ff-only on the command line to override the configured default per
+hint: invocation.
+fatal: Need to specify how to reconcile divergent branches.
+</code></pre>
+<p>Wir entscheiden uns für <code>merge</code>. <code>rebase</code> ist ein Verfahren, dass im Gegensatz zu <code>merge</code> keinen neuen Commit erzeugt, sondern lokal die Commits von UserB in die eigene History so einfügt, dass es so aussieht, als hätte UserA vor seinen eigenen Commits sich doch den aktuellen Stand des Remote-Repos via <code>git pull</code> geholt. <code>rebase</code> verändert also die History des Repos. Für diesen lokalen Anwendungsfall hier ist das kein Problem und es können <code>merge</code> und <code>rebase</code> gleichermaßen genutzt werden. <code>rebase</code> ist dagegen problematisch, wenn es direkt im Remote-Repo angewendet wird und mehrere User mit dem betroffenen Branch arbeiten: Ihre lokalen und Remote-Branches unterscheiden sich dann plötzlich und es hagelt Fehlermeldungen. Zuletzt noch zur dritten genannten Option <code>fast-forward only</code>: Sie würde unser Problem nicht lösen, da <em>Fast-Forward</em> genau den optimalen Fall meint, dass mein lokaler Branch keine dem Remote unbekannten Commits besitzt.</p>
+<p>Wir entscheiden uns also für <code>merge</code>, stellen das in der Repo-Konfiguration ein und versuchen erneut, mit <code>git pull</code> die unterschiedlichen Commits von UserA und UserB lokal in einem Commit auf <code>master</code> zu verbinden. Wir schauen uns das Ergebnis im Log grafisch an und pushen das Ergebnis.</p>
+<pre><code>## pull-Methode einstellen
+git config pull.rebase false
+
+## pull-Versuch wiederholen, es sollte nun automatisch ein neuer Commit erzeugt werden
+git pull
+
+## die Commit-Liste mit grafischer Repräsentation der zweitweise unterschiedlichen Branch-Zustände ansehen
+git log --graph
+
+## (Wir können hier den üblichen Kommentar eines Commits sehen, der von Git mit pull automatisch erzeugt worden ist: &quot;Merge branch 'master' of &lt;REPO&gt;&quot;. Und wir können sehen, dass der Commit von UserB nun auch als Verweis in unser lokalen Commit-History auftaucht.)
+## (&quot;git log&quot; kann eventuell eine längere Liste an Commits anzeigen. Im Terminal wird diese Liste womöglich in Abschnitten angezeigt. Mit &quot;Leerzeichen&quot; könnt ihr zum nächsten Abschnitt wechseln und mit &quot;Q&quot; die Listenansicht verlassen.)
+
+## Repo-Status anschauen: Unser lokaler Branch ist nun 4 Commits weiter als der Remote-Branch - mit den drei eigenen Commits und dem, der durch den pull-Befehl erzeugt worden ist
+git status
+
+## pushen
+git push
+</code></pre>
+<p>Voilá, UserA hat das Problem gelöst. Vor dem Committen den neuesten Stand zu pullen, hätte die Situation zwar verhindert. Aber Git als kollaboratives Versionierungstool bietet Möglichkeiten, mit solchen unterschiedlichen Zuständen von lokalem und Remote-Branch umzugehen. Dafür ist es gedacht. Das sehen wir jetzt auch im letzten Abschnitt dieses Szenarios.</p>
+<hr />
+<p><img src="../../images/attention_symbol.png" alt="Attention" width="25"/> <em>Im Terminal in das Repo von UserB wechseln.</em></p>
+<p><strong>UserB</strong> seinerseits vergisst nun auch, sich zu Beginn seiner Arbeit am Repo den neuesten Stand vom Remote herunterzuladen. Entgegen der abgesprochenen Aufteilung der Aufgaben möchte er spontan für die <code>readme.md</code> des Repos einen ersten Vorschlag zum Projekt beisteuern.</p>
+<pre><code>## Dummy-Datei mit anderer Überschrift anlegen, als UserA in seiner Version verwendet hat
+rm -f readme.md
+echo # Korpus&gt;readme.md
+</code></pre>
+<p>UserB staged die Änderung, erzeugt einen Commit und versucht ihn zu pushen.</p>
+<pre><code>## die readme.md stagen
+git add readme.md
+
+## überprüfen, welche Dateien für den folgenden Commit gestaged sind
+git status
+git diff --name-only --cached
+
+## committen
+git commit -m &quot;Projekt-Readme-Entwurf&quot;
+
+## pushen
+git push
+</code></pre>
+<p>UserB wird zuächst wie UserA auch aufgefordert zu entscheiden, mit welcher Methode <code>git pull</code> verschiedene Branch-Zustände zwischen lokalem und Remote-Branch vereinen soll. UserB entscheidet sich für <code>merge</code> und versucht erneut zu pullen.</p>
+<pre><code>## pull-Methode einstellen
+git config pull.rebase false
+
+## pull-Versuch wiederholen
+git pull
+</code></pre>
+<p>Im Gegensatz zur Situation von UserA kann Git hier die Commits von lokalem und Remote-Branch nicht einfach verbinden, denn UserA und UserB haben jeweils die erste Zeile der <code>readme.md</code> verändert. Git kann somit nicht entscheiden, welche Version die gewünschte ist, und übergibt die Entscheidung dem User:</p>
+<pre><code>Auto-merging readme.md
+CONFLICT (content): Merge conflict in readme.md
+Automatic merge failed; fix conflicts and then commit the result.
+</code></pre>
+<p>Um den Konflikt manuell zu lösen, muss UserA die <code>readme.md</code> in seinem Working Tree mit einem Text- oder Code-Editor öffnen. Dort fällt auf, dass Git den Inhalt der Datei verändert hat:</p>
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+# Korpus
+=======
+# Projekt-Korpus
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; 54a0706feaab2da3789b2693320a7fb5fea5afcb
+</code></pre>
+<p>Die Schreibweise markiert hier, wo der Konflikt sich befindet und welche Version der ersten Zeile des Dokuments von welchem Repo kommt: <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> markiert den Beginn des Konflikts. Die folgenden Zeilen bis <code>=======</code> sind die Version des sogenannten Basis- oder Head-Branches, also des Branches, der das Ziel der Merge-Prozedur ist - in diesem Fall ist das die Version von UserB auf seinem lokalen <code>master</code>-Branch. Zwischen <code>=======</code> und <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> folgt die Version des Branches, der in den Basis-Branch gemergt werden soll: die Version von UserA aus dem Remote-<code>master</code>.</p>
+<p>Um den Konflikt zu lösen, müssen die drei Zeilen mit den von Git gesetzten Steuerzeichen komplett gelöscht werden. UserB kann sich für eine der Varianten entscheiden oder die Zeile anders schreiben. Am Ende jedenfalls muss die Datei gespeichert, neu gestaged und committet werden. Wenn das für alle Dateien mit manuell zu lösenden Merge-Konflikten erledigt ist, ist der pull-Vorgang abgeschlossen. Die Änderungen können dann sofort gepusht werden.</p>
+<pre><code>## stagen nach dem manuellen Lösen des Konflikts
+git add readme.md
+
+## commit
+git commit -m &quot;Merge-Konflikt gelöst&quot;
+
+## zum Testen: einmal pullen - der pull-Vorgang ist jedoch schon abgeschlossen
+git pull
+
+## pushen
+git push
+</code></pre>
+<p>Damit endet dieses kleine Szenario: Neben den täglichen Git-Routinen und den häufig verwendeten Git-Befehlen war vor allem zu sehen, wie man bei der kollaborativen Arbeit auf einem Branch mit Merge-Konflikten umgeht. Im zweiten Szenario nun ist die Arbeitsweise eine andere: Hier arbeiten die Beteiligten auf unterschiedlichen Branches und müssen diese von Zeit und Zeit wieder auf einen Stand bringen.</p>
+<h2 id="szenario-b-website">Szenario B: Website</h2>
+<p>Das zweite Projekt-Team entwickelt eine Website. Auch sie richten sich einen <code>releases</code>-Branch ein, um die Commits mit den fertigen Versionen dort zu speichern, und auch hier findet die Entwicklung auf dem <code>master</code> statt. Anders als das Korpus-Team entwickeln aber die Projekt-Mitglieder jeweils einzelne Features (wie eine Such-Funktion oder das Hauptmenü oder eine Seite auf der Website) auf speziell dafür temporär angelegten Branches. Sobald ein Feature fertig ist, wird der Feature-Branch in den <code>master</code> gemergt.</p>
+<p>Dieses Vorgehen ist bei diesem Projekt sinnvoll, denn auf diese Weise können zwischenzeitlich, auch wenn ein Feature noch nicht ganz fertig entwickelt ist, die anderen Projekt-Mitglieder sich die Website schon einmal mit Hauptmenü oder Such-Funktion anschauen: Dafür wechseln sie einfach kurz auf den entsprechenden Feature-Branch, um sich einen Eindruck vom zukünftigen Zustand der Website in ihrem Working Tree zu verschaffen.</p>
+<p>Falls ihr schon Szenario A durchgespielt habt, gehen wir der Einfachheit halber davon aus, dass das Korpus-Team auch eine Website entwickelt, um die Arbeit im Web zu präsentieren.</p>
+<hr />
+<p><img src="../../images/attention_symbol.png" alt="Attention" width="25"/> <em>Im Terminal in das Repo von UserA wechseln.</em></p>
+<p><strong>UserA</strong> legt in seinem lokalen Repo einen <code>/website</code>-Ordner an, fügt eine <code>index.html</code> mit einem Hauptmenü sowie die dazugehörigen Pages im Ordner <code>/pages</code> hinzu. Schließlich staged, committet und pusht er das Ganze als einen initialen Commit.</p>
+<pre><code>## Ordner und Dateien anlegen
+mkdir &quot;website&quot;
+cd website
+echo Hauptmenu: Projekt, Korpus, Schema&gt;index.html
+mkdir pages
+cd pages
+echo Lorem Ipsum&gt;projekt.html
+echo Lorem Ipsum&gt;korpus.html
+echo Lorem Ipsum&gt;schema.html
+cd ..
+cd ..
+
+## alle Änderungen stagen
+git add --all
+
+## Commit erstellen
+git commit -m &quot;Initialer Commit für die Website&quot;
+
+## Commit hochladen
+git push
+</code></pre>
+<hr />
+<p><img src="../../images/attention_symbol.png" alt="Attention" width="25"/> <em>Im Terminal in das Repo von UserB wechseln.</em></p>
+<p><strong>UserB</strong> beginnt seine tägliche Arbeitsroutine damit, zu prüfen, auf welchem Branch er sich befindet, und die neuesten Änderungen aus dem Remote-Repo in sein lokales Repo einzufügen:</p>
+<pre><code>## prüfen, auf welchem Branch man sich lokal befindet
+git status
+
+## lokalen Branch auf master wechseln, falls nötig
+git checkout master
+
+## die neuesten Daten vom Remote-Branch herunterladen und direkt in den lokalen Branch einfügen
+git pull
+</code></pre>
+<p>Mit der Entwicklung einer Suchfunktion betraut, erzeugt UserB nun einen dafür gedachten lokalen Branch <code>suchfunktion</code>:</p>
+<pre><code>## neuen lokalen Branch anlegen: der Basis-Commit dieses neuen Branches ist der letzte Commit des master-Branches, da wir uns gerade auf master befinden
+git checkout -b suchfunktion
+
+## prüfen, auf welchem Branch wir uns jetzt befinden
+git status
+
+## Liste aller Branches (lokal und remote) anzeigen lassen
+git branch -avv
+</code></pre>
+<p>Die Übersicht über die Branches verrät, dass es zu <code>suchfunktion</code> noch keinen dazugehörigen Remote-Branch <code>remotes/origin/suchfunktion</code> gibt. Im Moment hat UserB nur einen lokalen Branch angelegt: Dieser wird erst mit <code>git push</code> vom Branch <code>suchfunktion</code> aus veröffentlicht. Prinzipiell kann man Branches als reine Lokal-Branches nutzen: Pushes von anderen lokalen Branches aus veröffentlichen <code>suchfunktion</code> nicht.</p>
+<p>UserB entwickelt im Folgenden das Feature, staged und committet die Änderungen und macht seinen Feature-Branch im Remote-Repo für die anderen Projekt-Mitglieder sichtbar:</p>
+<pre><code>## in index.html den neuen Menüpunkt &quot;Suche&quot; hinzufügen
+cd website
+rm -f index.html
+echo Hauptmenu: Projekt, Korpus, Schema, Suche&gt;index.html
+
+## neue Suche-Page hinzufügen
+cd pages
+echo Lorem Ipsum&gt;suche.html
+cd ..
+cd ..
+
+## alle Änderungen stagen
+git add --all
+
+## Commit erzeugen
+git commit -m &quot;Suchfunktion implementiert&quot;
+
+## Commit und damit auch den Feature-Branch in das Remote-Repo hochladen
+git push --set-upstream origin suchfunktion
+
+## (Mit der Flag &quot;--set-upstream origin suchfunktion&quot; wird die Verknüpfung zwischen dem lokalen und dem Remote-Branch &quot;suchfunktion&quot; explizit gesetzt. Damit werden in Zukunft &quot;git push&quot; und &quot;git pull&quot; wissen, woher sie beziehen und wohin sie sie hochladen müssen, wenn das lokale Repo sich auf dem &quot;suchfunktion&quot;-Branch befindet.)
+
+## Liste aller Branches (lokal und remote) anzeigen lassen
+git branch -avv
+</code></pre>
+<p>Nun ist der Branch <code>suchfunktion</code> mit dem Such-Feature veröffentlicht und kann von den Team-Mitgliedern besichtigt werden.</p>
+<hr />
+<p><img src="../../images/attention_symbol.png" alt="Attention" width="25"/> <em>Im Terminal in das Repo von UserA wechseln.</em></p>
+<p><strong>UserA</strong> lädt sich den neuen Branch herunter...</p>
+<pre><code>## den neusten Stand des Remote-Repos herunterladen
+git pull
+
+## den neuen Branch &quot;suchfunktion&quot; auschecken
+git checkout suchfunktion
+</code></pre>
+<p>... und testet das neue Feature.</p>
+<hr />
+<p><img src="../../images/attention_symbol.png" alt="Attention" width="25"/> <em>Im Terminal in das Repo von UserB wechseln.</em></p>
+<p><strong>UserB</strong> bekommt grünes Licht. Da alle zufrieden sind, wird entschieden, das Such-Feature so, wie es jetzt ist, in den <code>master</code>-Branch aufzunehmen, also zum festen Bestandteil der Website zu machen. Dafür wird der Branch <code>suchfunktion</code> nun in den <code>master</code> gemergt, was bedeutet, dass in <code>master</code> ein neuer Commit erzeugt wird, der den Stand des letzten Commits auf dem <code>suchfunktion</code>-Branch mit dem Stand des letzten <code>master</code>-Commits vereint. Der Branch <code>suchfunktion</code> bleibt dabei, wie er ist.</p>
+<p>Dieser Vorgang wird in unserem Fall problemlos ablaufen, da seit der Erstellung des <code>suchfunktion</code>-Branches auf dem <code>master</code>-Branch kein neuer Commit hinzugekommen ist: Es ist, als hätte UserB die Suchfunktion direkt auf dem <code>master</code> entwickelt. Diese konfliktfreie Art des Mergens nennt man auch <em>Fast-forward</em>.</p>
+<pre><code>## auf den Branch wechseln, in den die Änderungen des anderen Branches integriert werden sollen
+git checkout master
+
+## sicherstellen, dass man die neuesten Commits vom Remote-Master lokal zur Verfügung hat
+git pull
+
+## den lokalen suchfunktion-Branch in den lokalen master-Branch mergen
+git merge suchfunktion
+</code></pre>
+<p>Der Merge war erfolgreich, er hat aber lokal stattgefunden. Mit <code>git push</code> wird der neue Zustand des <code>master</code>-Branches nun in das Remote-Repo geladen.</p>
+<pre><code>## den neuen Zustand vom master pushen
+git push
+
+## aktuelle Liste der lokalen und Remote-Branches anschauen
+git branch -avv
+</code></pre>
+<p>Da das Feature implementiert und von allen Team-Mitgliedern abgenickt ist, hat der Branch <code>suchfunktion</code> seinen Zweck erfüllt. Um die History und Liste der Branches übersichtlich zu halten, ist es üblich, an dieser Stelle den Feature-Branch zu löschen. Für zukünftige größere Änderungen an der Website, wie eben die Entwicklung eines neuen Features oder einer neuen Page, werden immer jeweils neue Feature-Branches ins Leben gerufen.</p>
+<pre><code>## den lokalen Branch &quot;suchfunktion&quot; löschen
+git branch -d suchfunktion
+
+## (Hinweis: Dieser Befehl wird scheitern, wenn die Remote-Version und die lokale Version des Branches sich unterscheiden. Um auch in diesem Fall den lokalen Branch zu löschen, muss die Flag `-D` verwendet werden: `git branch -D suchfunktion`.)
+
+## den Remote-Branch &quot;suchfunktion&quot; löschen
+git push -d origin suchfunktion
+
+## aktuelle Liste der lokalen und Remote-Branches anschauen
+git branch -avv
+</code></pre>
+<hr />
+<p><img src="../../images/attention_symbol.png" alt="Attention" width="25"/> <em>Im Terminal in das Repo von UserA wechseln.</em></p>
+<p><strong>UserA</strong> will sich einige Zeit später nochmal den <code>suchfunktion</code>-Branch anschauen und versucht den neuesten Stand zu pullen, bekommt aber natürlich eine Fehlermeldung, da UserB den Branch im Remote-Repo ja schon gelöscht hat. UserA schaut verwirrt auf die Branch-Liste, die <code>git branch -avv</code> ihm ausgibt: Da wird <code>remotes/origin/suchfunktion</code> noch als existent angezeigt.</p>
+<p>Das Problem ist hier, dass ein einfacher <code>git fetch</code>-Befehl nicht ausreicht, um die Liste der lokalen Verknüpfungen zu den Remote-Branches zu aktualisieren: Alle anderen User müssen, nachdem ein anderer User einen Remote-Branch löscht, ihre lokalen Verknüpfungen aktualisieren: <code>git fetch --all --prune</code>. Damit werden alle lokalen Verknüpfungen zu Remote-Branches, die nicht mehr existieren, entfernt und <code>git branch -avv</code> sollte nun die aktuelle Situation korrekt anzeigen.</p>
+<p>Davon abgesehen ändert UserA noch eine Kleinigkeit in der <code>index.html</code> und im <code>/pages</code>-Ordner: Den Titel der Seite "Schema" schreibt er in "Schemata" um, da das Projekt eventuell mehrere Schemata publizieren wird. Am Ende staged, committet und pusht er die Änderungen.</p>
+<pre><code>## prüfen, ob er auf dem master-Branch ist
+git status
+
+## auf den lokalen master-Branch wechseln, falls nötig
+git checkout master
+
+## index.html ändern
+cd website
+rm -f index.html
+echo Hauptmenu: Projekt, Korpus, Schemata, Suche&gt;index.html
+
+## Name von schema.html ändern
+cd pages
+rm -f schema.html
+echo Lorem Ipsum&gt;schemata.html
+cd ..
+cd ..
+
+## stagen
+git add --all
+
+## committen
+git commit -m &quot;Menupunkt 'Schema' in 'Schemata' umbenannt&quot;
+
+## pushen
+git push
+</code></pre>
+<hr />
+<p><img src="../../images/attention_symbol.png" alt="Attention" width="25"/> <em>Im Terminal in das Repo von UserB wechseln.</em></p>
+<p><strong>UserB</strong> entwickelt derweil eine Changelog-Seite auf einem neuen Feature-Branch <code>changelog</code>. In unserer fiktiven Timeline hat UserB damit bereits begonnen, bevor UserA seine letzten Änderungen committet hat. Das heißt in dieser Situation: UserB hat keine Chance, die letzten Änderungen von UserA zu pullen, bevor er den neuen Branch <code>changelog</code> eröffnet.</p>
+<pre><code>## prüfen, auf welchem Branch wir uns befinden
+git status
+
+## auf den master-Branch wechseln, falls nötig
+git checkout master
+
+## den aktuellsten Commit auf dem master-Branch anschauen
+git show HEAD
+
+## (UserB kennt also zu diesem Zeitpunkt den Commit von UserA nicht, mit dem er den Menupunkt &quot;Schema&quot; in &quot;Schemata&quot; geändert hat.)
+
+## neuen lokalen Branch anlegen: der Basis-Commit dieses neuen Branches ist der zu diesem Zeitpunkt letzte Commit des master-Branches &quot;Suchfunktion implementiert&quot;
+git checkout -b changelog
+
+## prüfen, auf welchem Branch wir uns jetzt befinden
+git status
+
+## Liste aller Branches (lokal und remote) anzeigen lassen
+git branch -avv
+
+## in index.html den neuen Menüpunkt &quot;Changelog&quot; hinzufügen
+cd website
+rm -f index.html
+echo Hauptmenu: Projekt, Korpus, Schema, Suche, Changelog&gt;index.html
+
+## neue Suche-Page hinzufügen
+cd pages
+echo Lorem Ipsum&gt;changelog.html
+cd ..
+cd ..
+
+## alle Änderungen stagen
+git add --all
+
+## Commit erzeugen
+git commit -m &quot;Changelog implementiert&quot;
+
+## Commit und damit auch den Feature-Branch in das Remote-Repo hochladen
+git push --set-upstream origin changelog
+
+## Liste aller Branches (lokal und remote) anzeigen lassen
+git branch -avv
+</code></pre>
+<p>Damit ist der <code>changelog</code>-Branch im Remote-Repo veröffentlicht. Auch dieses Feature wird vom Projekt-Team positiv aufgenommen. UserB bekommt erneut grünes Licht zum Mergen des Feature-Branches in den <code>master</code>. </p>
+<pre><code>## auf den Branch wechseln, in den die Änderungen des anderen Branches integriert werden sollen
+git checkout master
+
+## sicherstellen, dass man die neuesten Commits vom Remote-Master lokal zur Verfügung hat
+git pull
+
+## (Hier merkt UserB nun, dass der master-Branch seit dem Erzeugen des changelog-Branches einen neuen Commit erhalten hat. Am ursprünglichen Plan, die Branches zu mergen, ändert das jedoch nichts: Git bietet die Features an, mit möglichen Konflikten zwischen den Commits umzugehen.)
+
+## den lokalen changelog-Branch in den lokalen master-Branch mergen
+git merge changelog
+</code></pre>
+<p>UserB bekommt eine Konflikt-Meldung, da UserA und UserB die gleiche Zeile in der gleichen Datei <code>index.html</code> verändert haben:</p>
+<pre><code>Auto-merging website/index.html
+CONFLICT (content): Merge conflict in website/index.html
+Automatic merge failed; fix conflicts and then commit the result.
+</code></pre>
+<p>Git übergibt die Kontrolle dem User. Um den Konflikt manuell zu lösen, muss UserB die <code>readme.md</code> in seinem Working Tree mit einem Text- oder Code-Editor öffnen. Dort fällt erneut auf, dass Git den Inhalt der Datei verändert hat:</p>
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+Hauptmenu: Projekt, Korpus, Schemata, Suche
+=======
+Hauptmenu: Projekt, Korpus, Schema, Suche, Changelog
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; changelog
+</code></pre>
+<p>Die Schreibweise markiert hier, wo der Konflikt sich befindet und welche Version der ersten Zeile des Dokuments von welchem Repo kommt: <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> markiert den Beginn des Konflikts. Die folgenden Zeilen bis <code>=======</code> sind die Version des sogenannten Basis- oder Head-Branches, also des Branches, der das Ziel der Merge-Prozedur ist - in diesem Fall ist das die Version von UserA auf seinem lokalen <code>master</code>-Branch. Zwischen <code>=======</code> und <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> folgt die Version des Branches, der in den Basis-Branch gemergt werden soll: die Version von UserB aus <code>changelog</code>.</p>
+<p>Um den Konflikt zu lösen, müssen die drei Zeilen mit den von Git gesetzten Steuerzeichen komplett gelöscht werden. UserB kann sich für eine der Varianten entscheiden oder die Zeile anders schreiben. Die Lösung hier ist <code>Hauptmenu: Projekt, Korpus, Schemata, Suche, Changelog</code>. Am Ende muss die Datei gespeichert, neu gestaged und committet werden. Wenn das für alle Dateien mit manuell zu lösenden Merge-Konflikten erledigt ist, ist der <code>merge</code>-Vorgang abgeschlossen. Der aktualisierte lokale <code>master</code> mit dem neuen Merge-Commit kann dann sofort gepusht werden.</p>
+<pre><code>## stagen nach dem manuellen Lösen des Konflikts
+git add index.html
+
+## commit
+git commit -m &quot;Merge-Konflikt gelöst&quot;
+
+## prüfen, ob alle Commits von UserA und UserB nun sich im master-Branch befinden
+git log
+
+## pushen
+git push
+
+## aktuelle Liste der lokalen und Remote-Branches anschauen
+git branch -avv
+</code></pre>
+<p>Damit ist der Merge abgeschlossen. Schließlich löscht UserB den Feature-Branch lokal und im Remote-Repository:</p>
+<pre><code>## den lokalen Branch &quot;changelog&quot; löschen
+git branch -d changelog
+
+## (erneut der Hinweis: Dieser Befehl wird scheitern, wenn die Remote-Version und die lokale Version des Branches sich unterscheiden. Um auch in diesem Fall den lokalen Branch zu löschen, muss die Flag `-D` verwendet werden: `git branch -D changelog`.)
+
+## den Remote-Branch &quot;changelog&quot; löschen
+git push -d origin changelog
+
+## aktuelle Liste der lokalen und Remote-Branches anschauen
+git branch -avv
+</code></pre>
+<p>Das ist das Ende des zweiten Szenarios. Es ist zu sehen gewesen, wie die täglichen Abläufe im kollaborativen Arbeiten mit Git aussehen, welche Befehle dabei immer wieder zum Einsatz kommen und vor allem: dass ein Konflikt zwischen zwei Versionen einer Datei (in Git-Begriffen: zwischen zwei zu mergenden Commits) kein unbedingt zu verhindernder Ausnahmezustand ist, sondern zum kollaborativen Arbeiten mit Dateien (auch ohne Git) dazugehört. Git hält gezielt Features dafür bereit, mit dieser Situation umzugehen.</p>
+<p>Diese und die anderen Features müssen nicht zwingend über die Kommandozeile bedient werden. Im Folgenden stelle ich euch drei Tools mit grafischer Benutzeroberfläche vor. Ihr habt bis hier schon viele Befehle kennengelernt (falls noch nicht geschehen: ein Blick in den <a href="../../was-ist/">Was ist ... </a>-Abschnitt ist dafür empfohlen). Zu wissen, wie Git auf Ebene der Kommandozeile funktioniert, hilft enorm, die Funktionen dieser Tools zu verstehen.</p>
+<h2 id="tools-fur-die-arbeit-mit-lokalen-repositorien">Tools für die Arbeit mit lokalen Repositorien</h2>
+<p>Die am häufigsten gebrauchten Git-Befehle zu kennen ist nützlich. Im täglichen Einsatz beschleunigen Git-Tools mit grafischen Benutzeroberflächen die Arbeit jedoch enorm. Drei von ihnen werden im Folgenden vorgestellt.</p>
+<h3 id="git-client-add-on-fur-oxygen-xml-editor">Git Client Add-On für Oxygen XML Editor</h3>
+<p><a href="https://www.oxygenxml.com/doc/versions/25.1/ug-editor/topics/git-addon.html">Download</a></p>
+<ul>
+<li>Betriebssysteme: Win / Linux / Mac</li>
+<li>Plugin für Oxygen XML Editor 24.1 oder neuer</li>
+<li>für lokale Repos und Repos von allen gängigen Online-Plattformen (GitHub, GitLab) verwendbar</li>
+</ul>
+<!-- hier weiter -->
+<h3 id="visual-studio-code-vscode-mit-git-graph-extension">Visual Studio Code (VSCode) mit Git Graph-Extension</h3>
+<p><a href="https://code.visualstudio.com/Download">Download</a></p>
+<ul>
+<li>Betriebssysteme: Win / Linux / Mac</li>
+<li>Code-Editor mit Git-Funktionen</li>
+<li>für lokale Repos und Repos von allen gängigen Online-Plattformen (GitHub, GitLab) verwendbar</li>
+</ul>
+<!-- hier weiter -->
+<h3 id="github-desktop">GitHub Desktop</h3>
+<p><a href="https://desktop.github.com/">Download</a></p>
+<ul>
+<li>Betriebssysteme: Win / Mac</li>
+<li>Software zum Verwalten von Git-Repositorien</li>
+<li>für lokale Repos und Repos von allen gängigen Online-Plattformen (GitHub, GitLab) verwendbar</li>
+</ul>
+<!-- hier weiter -->
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "search": "../../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.78eede0e.min.js"></script>
+      
+    
+  </body>
+</html>
