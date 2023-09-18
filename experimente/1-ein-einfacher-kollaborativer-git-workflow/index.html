@@ -913,17 +913,21 @@
 
 <h1 id="1-ein-einfacher-kollaborativer-git-workflow">1. Ein einfacher kollaborativer Git-Workflow</h1>
 <p>Willkommen bei <strong>Experiment #1</strong>! Hier lernst du konkrete Schritte und Routinen kennen, die üblicherweise in kollaborativen Projekten mit Git anfallen. Das Setup entspricht der Konstellation, die du bereits auf deinem Rechner lokal erzeugt hast: Es gibt ein Online-Repo, auf das mehrere User des Projekts mit lokalen Klonen zugreifen. Die konkreten Arbeitsweisen mit Git hängen natürlich auch immer vom Arbeitsmaterial und den Zielen des Projekts ab. Im Folgenden findest du daher zwei exemplarische Projekt-Szenarien: den Aufbau eines Text-Korpus und die Entwicklung einer Website.</p>
-<p>In den Szenarien werden Git-Befehle im Terminal verwendet. Am Ende dieses Experiments stelle ich aber auch noch Tools mit grafischen Benutzeroberflächen vor, die in der täglichen Arbeit mit Git verwendet werden können: das <em>Git Client Add-On</em> für den Oxygen XML Editor, den Code-Editor <em>VSCode</em> mit der <em>Git Graph</em>-Extension und die Software <em>GitHub Desktop</em>.</p>
+<p>In den Szenarien werden Git-Befehle im Terminal verwendet. Am Ende dieses Experiments stelle ich aber auch noch Tools mit grafischen Benutzeroberflächen vor, die in der täglichen Arbeit mit Git verwendet werden können: das <a href="#git-client-add-on-fur-oxygen-xml-editor">Git Client Add-On für den Oxygen XML Editor</a>, den Code-Editor <a href="#visual-studio-code-vscode-mit-git-graph-extension">VSCode mit der <em>Git Graph</em>-Extension</a> und die Software <a href="#github-desktop">GitHub Desktop</a>.</p>
+<p>Sollten hier Begriffe fallen, die euch unklar sind, schaut einmal in der <a href="../../was-ist/">Was ist ... ?</a>-Abteilung nach.</p>
 <h2 id="szenario-a-text-korpus">Szenario A: Text-Korpus</h2>
 <p>Das Projekt-Team will ein Text-Korpus aufbauen und veröffentlichen, es fallen mehrere Aufgaben an: Textquellen ausfindig machen, Texte auswählen, ein Dateiformat und Textschema für das Korpus definieren, Texte in das gewählte Schema bringen und die Arbeit sowie das Korpus dokumentieren.</p>
-<p>Für das Repo bedeutet das, dass es verschiedene Arten von Dateien gibt:
-- Texte im Quellformat
-- Texte im Projektformat
-- Transformationsskripte
-- Textschema
-- Dokumentationsdateien</p>
-<p>UserA und UserB entscheiden sich dafür, die Aufgaben aufzuteilen: UserA sucht Texte im Quellformat, lädt sie hoch und dokumentiert das Projekt, UserB schreibt Transformationsskripte und erzeugt die Texte im Projektformat. Beide zusammen arbeiten am Textschema und überprüfen die transformierten Texte auf Fehler.</p>
-<p>Wenn die Projektgruppe sehr klein ist und die Aufgaben so verteilt sind, dass es kaum dazu kommt, dass mehrere User die selben Dateien editieren, ist es kein Problem, wenn alle Beteiligten auf dem selben Branch arbeiten: Es wird selten zu Merge-Konflikten kommen. Da man aber plant, das Korpus wie eine Software versioniert zu veröffentlichen, soll das Repo zwei Branches haben: einen Arbeitsbranch und einen, auf dem nur die fertigen Releases gespeichert werden. Unabhängig der Gepflogenheit, den <code>master</code> für Releases zu nutzen und nebenbei einen <code>develop</code>-Branch für die tägliche Arbeit zu haben, werden sie auf dem <code>master</code> arbeiten und für die Veröffentlichungen den Branch <code>releases</code> einrichten: Der <code>master</code> ist in Git kein besonderer Branch, sondern nur eine Benennungskonvention.</p>
+<p>Für das Repo bedeutet das, dass es verschiedene Arten von Dateien gibt:</p>
+<ul>
+<li>Texte im Quellformat</li>
+<li>Texte im Projektformat</li>
+<li>Transformationsskripte</li>
+<li>Textschema</li>
+<li>Dokumentationsdateien</li>
+</ul>
+<p>UserA und UserB entscheiden sich dafür, die Aufgaben aufzuteilen: UserA sucht Texte im Quellformat, lädt sie hoch und dokumentiert das Projekt; UserB schreibt Transformationsskripte und erzeugt die Texte im Projektformat. Beide zusammen arbeiten am Textschema und überprüfen die transformierten Texte auf Fehler.</p>
+<p>Wenn die Projektgruppe sehr klein ist und die Aufgaben so verteilt sind, dass es kaum dazu kommt, dass mehrere User die selben Dateien editieren, ist es kein Problem, wenn alle Beteiligten auf dem selben Branch arbeiten: Es wird selten zu Merge-Konflikten kommen. Da man aber plant, das Korpus wie eine Software versioniert zu veröffentlichen, soll das Repo doch zwei Branches haben: einen Arbeitsbranch und einen, auf dem nur die fertigen Releases gespeichert werden.</p>
+<p>Unabhängig der Gepflogenheit, den <code>master</code> für Releases zu nutzen und nebenbei einen <code>develop</code>-Branch für die tägliche Arbeit zu haben, werden sie auf dem <code>master</code> arbeiten und für die Veröffentlichungen den Branch <code>releases</code> einrichten: Der <code>master</code> ist in Git kein besonderer Branch, sondern einfach nur eine Benennungskonvention für den ersten Branch.</p>
 <table>
 <thead>
 <tr>
@@ -990,15 +994,15 @@ echo Text001,text001.txt,Projekt Gutenberg&gt;&gt;textList.csv
 cd ..
 </code></pre>
 <p>UserA will die Änderungen nun stagen, commiten und in das Remote-Repo hochladen. Dabei entscheidet er sich dafür, zwei Commits daraus zu machen, da die vorgenommenen Änderungen zwei unterschiedliche Aufgabenbereiche betreffen: Quelltextablage und Dokumentation. Das hat in der Zukunft einen möglichen Vorteil: Entscheidet man sich später dafür, Text001 doch nicht in das Korpus aufzunehmen, kann man dann gezielt den einen Commit rückgängig machen, mit dem die txt-Datei hinzugefügt wurde, ohne zugleich auch die <code>textList.csv</code> mit entfernen zu müssen.</p>
-<p>Übrigens: Mit "einen Commit rückgängig machen" ist nicht löschen gemeint, sondern das Erzeugen eines neuen Commits, der die Änderungen des alten Commits mittels <code>git revert</code> rückgängig macht. Mehr dazu findet ihr im <a href="#7-fehler-rückgängig-machen">Experiment #7</a>. Nun weiter im Text.</p>
-<pre><code>## schauen, welche Veränderungen im Working Tree erkannt worden sind
+<p>Übrigens: Mit "einen Commit rückgängig machen" ist nicht löschen gemeint, sondern das Erzeugen eines neuen Commits, der die Änderungen des alten Commits mittels <code>git revert</code> rückgängig macht. Mehr dazu findet ihr im <a href="../7-fehler-rueckgaengig-machen/">Experiment #7</a>. Nun weiter im Text.</p>
+<pre><code>## schauen, welche Veränderungen im Working Tree erkannt worden sind: ls-files --others zeigt alle bisher ungetrackten Dateien an
 git status
 git ls-files --others
 
 ## den Text stagen, um ihn zum Commit vorzubereiten
 git add sources/text001.txt
 
-## überprüfen, welche Dateien für den folgenden Commit gestaged sind
+## überprüfen, welche Dateien für den folgenden Commit gestaged sind: git diff --name-only --cached zeigt die Namen der gestagten Dateien an, die im Vergleich zum letzten Commit geändert wurden
 git status
 git diff --name-only --cached
 
@@ -1020,7 +1024,7 @@ git push
 <pre><code>## prüfen, auf welchem Branch man sich lokal befindet
 git status
 
-## (Hinweis: Da an dieser Stelle UserB noch keine Updates vom Remote-Repo geholt hat, steht in der Status-Meldung &quot;Your branch is up to date with 'origin/master'&quot;. Die Meldung aktualisiert sich erst nach einem fetch. Verwendet man zum Updaten dagegen pull, werden die Änderungen direkt in den lokalen Branch gemergt, was bewirkt, dass eine anschließende status-Anfrage wiederum ergibt, dass der lokale Branch uptodate ist, was er dann ja auch tatsächlich ist. Zusammengefasst: Der status-Befehl macht keine eigene Abfrage, sondern vergleicht den lokalen Branch mit der zuletzt gefetchten Version des Remote-Branches.)
+## (Hinweis: Da an dieser Stelle UserB noch keine Updates vom Remote-Repo geholt hat, steht in der Status-Meldung &quot;Your branch is up to date with 'origin/master'&quot;. Die Meldung aktualisiert sich erst nach einem fetch. Verwendet man zum Updaten dagegen pull, werden die Änderungen direkt in den lokalen Branch gemergt, was bewirkt, dass eine anschließende status-Anfrage wiederum ergibt, dass der lokale Branch uptodate ist, was er dann ja auch tatsächlich ist. Zusammengefasst: Der status-Befehl macht keine eigene Abfrage, sondern vergleicht nur den lokalen Branch mit der zuletzt gefetchten Version des Remote-Branches.)
 
 ## lokalen Branch auf master wechseln, falls nötig
 git checkout master
@@ -1120,7 +1124,7 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 <pre><code>## den neuesten Stand des Remote-Master-Branches ziehen und versuchen, mit dem lokalen Branch zu mergen
 git pull
 
-## der Vorgang wird abgebrochen und wir bekommen als Antwort die Aufforderung, zu entscheiden, mit welcher Methode Git in so einem Fall die Branches auf einen Stand bringen soll
+## der Vorgang wird abgebrochen und wir bekommen als Antwort die Aufforderung, zu entscheiden, mit welcher Methode Git divergierende Branches (zwischen dem Remote- und dem lokalen Repo) auf einen Stand bringen soll
 hint: You have divergent branches and need to specify how to reconcile them.
 hint: You can do so by running one of the following commands sometime before
 hint: your next pull:
@@ -1136,11 +1140,11 @@ hint: invocation.
 fatal: Need to specify how to reconcile divergent branches.
 </code></pre>
 <p>Wir entscheiden uns für <code>merge</code>. <code>rebase</code> ist ein Verfahren, dass im Gegensatz zu <code>merge</code> keinen neuen Commit erzeugt, sondern lokal die Commits von UserB in die eigene History so einfügt, dass es so aussieht, als hätte UserA vor seinen eigenen Commits sich doch den aktuellen Stand des Remote-Repos via <code>git pull</code> geholt. <code>rebase</code> verändert also die History des Repos. Für diesen lokalen Anwendungsfall hier ist das kein Problem und es können <code>merge</code> und <code>rebase</code> gleichermaßen genutzt werden. <code>rebase</code> ist dagegen problematisch, wenn es direkt im Remote-Repo angewendet wird und mehrere User mit dem betroffenen Branch arbeiten: Ihre lokalen und Remote-Branches unterscheiden sich dann plötzlich und es hagelt Fehlermeldungen. Zuletzt noch zur dritten genannten Option <code>fast-forward only</code>: Sie würde unser Problem nicht lösen, da <em>Fast-Forward</em> genau den optimalen Fall meint, dass mein lokaler Branch keine dem Remote unbekannten Commits besitzt.</p>
-<p>Wir entscheiden uns also für <code>merge</code>, stellen das in der Repo-Konfiguration ein und versuchen erneut, mit <code>git pull</code> die unterschiedlichen Commits von UserA und UserB lokal in einem Commit auf <code>master</code> zu verbinden. Wir schauen uns das Ergebnis im Log grafisch an und pushen das Ergebnis.</p>
-<pre><code>## pull-Methode einstellen
-git config pull.rebase false
+<p>Wir entscheiden uns also für <code>merge</code>, stellen das in der globalen Konfiguration ein und versuchen erneut, mit <code>git pull</code> die unterschiedlichen Commits von UserA und UserB lokal in einem Commit auf <code>master</code> zu verbinden. Wir schauen uns das Ergebnis im Log grafisch an und pushen das Ergebnis.</p>
+<pre><code>## pull-Methode einstellen, auf globalem Level, da merge in allen Fällen eine sichere Methode ist
+git config --global pull.rebase false
 
-## pull-Versuch wiederholen, es sollte nun automatisch ein neuer Commit erzeugt werden
+## pull-Versuch wiederholen, es sollte nun automatisch ein neuer lokaler Commit erzeugt werden
 git pull
 
 ## die Commit-Liste mit grafischer Repräsentation der zweitweise unterschiedlichen Branch-Zustände ansehen
@@ -1179,7 +1183,7 @@ git push
 </code></pre>
 <p>UserB wird zuächst wie UserA auch aufgefordert zu entscheiden, mit welcher Methode <code>git pull</code> verschiedene Branch-Zustände zwischen lokalem und Remote-Branch vereinen soll. UserB entscheidet sich für <code>merge</code> und versucht erneut zu pullen.</p>
 <pre><code>## pull-Methode einstellen
-git config pull.rebase false
+git config --global pull.rebase false
 
 ## pull-Versuch wiederholen
 git pull
