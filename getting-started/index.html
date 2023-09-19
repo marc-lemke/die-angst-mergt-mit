@@ -708,11 +708,11 @@
 <li>Öffnet ein Terminal mit Kommandozeile (<em>Git Bash</em> in Windows) und testet die Git-Installation: <code>git --version</code> sollte eine Versionsnummer ausgeben.</li>
 <li>Erzeugt einen Tutorial-Ordner irgendwo auf eurem System und öffnet diesen Ordner im Terminal.</li>
 <li>Initialisiert dort ein blankes (englisch: bare) Repository: <code>git init --bare an-online-repo.git</code>.</li>
-<li>Erzeugt zwei weitere Ordner im Tutorial-Ordner: <code>mkdir userA</code> und <code>mkdir userB</code>.</li>
+<li>Erzeugt zwei weitere Ordner im Tutorial-Ordner: <code>mkdir "userA"</code> und <code>mkdir "userB"</code>.</li>
 <li>Wechselt im Terminal in einen der User-Ordner und klont das "Online"-Repo dort hinein: <code>git clone ../an-online-repo.git</code>.</li>
 <li>Wiederholt den vorigen Schritt im anderen User-Ordner.</li>
 <li>Wechselt im Terminal in einen der durch Klonen erzeugten Repo-Ordner <code>/an-online-repo</code>.</li>
-<li>Erzeugt dort eine neue Datei: <code>echo # Dies ist eine Readme-Datei&gt;readme.md</code>.</li>
+<li>Erzeugt dort eine neue Datei: <code>echo "# Dies ist eine Readme-Datei" &gt; readme.md</code>.</li>
 <li>Erzeugt einen ersten Commit: <code>git add readme.md</code> und <code>git commit -m "erster Commit"</code>.</li>
 <li>Pusht den Commit (und damit auch den Master-Branch) in das "Online"-Repo: <code>git push</code>.</li>
 <li>Wechselt im Terminal in den anderen durch Klonen erzeugten Repo-Ordner <code>/an-online-repo</code>.</li>

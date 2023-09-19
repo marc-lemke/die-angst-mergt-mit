@@ -1004,13 +1004,13 @@ git pull
 <p>Er legt nun die Ordner <code>/sources</code> und <code>/docs</code> sowie die Dateien <code>text001.txt</code> und <code>textList.csv</code> an. Wir benutzen Dummy-Dateien. Du kannst sie im Explorer oder im Terminal erzeugen:</p>
 <pre><code>mkdir &quot;sources&quot;
 cd sources
-echo Lorem Ipsum&gt;text001.txt
+echo &quot;Lorem Ipsum&quot; &gt; text001.txt
 cd ..
 
 mkdir &quot;docs&quot;
 cd docs
-echo Text,Quelldatei,Quelle&gt;textList.csv
-echo Text001,text001.txt,Projekt Gutenberg&gt;&gt;textList.csv
+echo &quot;Text,Quelldatei,Quelle&quot; &gt; textList.csv
+echo &quot;Text001,text001.txt,Projekt Gutenberg&quot; &gt;&gt; textList.csv
 cd ..
 </code></pre>
 <p>UserA will die Änderungen nun stagen, commiten und in das Remote-Repo hochladen. Dabei entscheidet er sich dafür, zwei Commits daraus zu machen, da die vorgenommenen Änderungen zwei unterschiedliche Aufgabenbereiche betreffen: Quelltextablage und Dokumentation. Das hat in der Zukunft einen möglichen Vorteil: Entscheidet man sich später dafür, Text001 doch nicht in das Korpus aufzunehmen, kann man dann gezielt den einen Commit rückgängig machen, mit dem die txt-Datei hinzugefügt wurde, ohne zugleich auch die <code>textList.csv</code> mit entfernen zu müssen.</p>
@@ -1057,7 +1057,7 @@ git pull
 <p>Dummy-Datei anlegen:</p>
 <pre><code>mkdir &quot;scheme&quot;
 cd scheme
-echo a scheme file&gt;project.odd
+echo &quot;a scheme file&quot; &gt; project.odd
 cd ..
 </code></pre>
 <p>Stagen, committen und pushen:</p>
@@ -1082,17 +1082,17 @@ git push
 <p><img src="../../images/attention_symbol.png" alt="Attention" width="25"/> <em>Jetzt im Terminal wieder in das Repo von UserA wechseln.</em></p>
 <p><strong>UserA</strong> möchte nun weitere Quelltexte hinzufügen, <code>textList.csv</code> aktualisieren und eine erste Version der <code>readme.md</code> des Repos hochladen. Diesmal aber vergisst er die Routine und pullt nicht den aktuellen Stand des Remote-Repos. Mal schauen, was passiert. Zunächst legen wir wieder die Dummy-Dateien an und aktualisieren <code>textList.csv</code> sowie <code>readme.md</code>. Im Code entferne ich hier die alte <code>readme.md</code> und füge eine neue ein. Für Git ist dies jedoch eine Aktualisierung, da der Dateiname der gleiche ist. Ihr könnt die Änderungen wie gehabt im Datei-Explorer oder im Terminal durchführen.</p>
 <pre><code>cd sources
-echo Lorem Ipsum zum Zweiten&gt;text002.txt
-echo Lorem Ipsum zum Dritten&gt;text003.txt
+echo &quot;Lorem Ipsum zum Zweiten&quot; &gt; text002.txt
+echo &quot;Lorem Ipsum zum Dritten&quot; &gt; text003.txt
 cd ..
 
 cd docs
-echo Text002,text002.txt,Projekt Gutenberg&gt;&gt;textList.csv
-echo Text003,text003.txt,DTA&gt;&gt;textList.csv
+echo &quot;Text002,text002.txt,Projekt Gutenberg&quot; &gt;&gt; textList.csv
+echo &quot;Text003,text003.txt,DTA&quot; &gt;&gt; textList.csv
 cd ..
 
 rm -f readme.md
-echo # Projekt-Korpus&gt;readme.md
+echo &quot;# Projekt-Korpus&quot; &gt; readme.md
 </code></pre>
 <p>Wiederum entscheidet UserA nun, drei Commits aus dem Änderungen zu machen: einen für die Quelltexte, einen für die Aktualisierung der <code>textList.csv</code> und einen für die Aktualisierung der <code>readme.md</code>:</p>
 <pre><code>## schauen, welche Veränderungen im Working Tree erkannt worden sind
@@ -1130,8 +1130,11 @@ git diff --name-only --cached
 ## committen
 git commit -m &quot;Entwurf für ernsthafte Repo-Readme&quot;
 </code></pre>
-<p>Nun zum interessanten Teil: <code>git status</code> würde an diesem Punkt die Nachricht <code>Your branch is ahead of 'origin/master' by 3 commits</code> ausgeben. Jedoch hat UserA bekanntlich vergessen, sich den aktuellen Stand vom Remote-Repo zu holen. Er versucht jetzt, seine Änderungen zu pushen, und bekommt folgende Meldung:</p>
-<pre><code> ! [rejected]        master -&gt; master (fetch first)
+<p>Nun zum interessanten Teil: <code>git status</code> würde an diesem Punkt die Nachricht <code>Your branch is ahead of 'origin/master' by 3 commits</code> ausgeben. Jedoch hat UserA bekanntlich vergessen, sich den aktuellen Stand vom Remote-Repo zu holen. Er versucht jetzt, seine Änderungen zu pushen, und bekommt eine Meldung:</p>
+<pre><code>## push
+git push
+
+ ! [rejected]        master -&gt; master (fetch first)
 error: failed to push some refs to 'D:/repositories/git_tutorial/UserA/..\an-online-repo.git'
 hint: Updates were rejected because the remote contains work that you do not
 hint: have locally. This is usually caused by another repository pushing to
@@ -1144,7 +1147,7 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 <pre><code>## den neuesten Stand des Remote-Master-Branches ziehen und versuchen, mit dem lokalen Branch zu mergen
 git pull
 
-## der Vorgang wird abgebrochen und wir bekommen als Antwort die Aufforderung, zu entscheiden, mit welcher Methode Git divergierende Branches (zwischen dem Remote- und dem lokalen Repo) auf einen Stand bringen soll
+## der Vorgang wird hier eventuell (falls die Einstellung nicht schon gemacht worden ist) abgebrochen und wir bekommen als Antwort die Aufforderung, zu entscheiden, mit welcher Methode Git divergierende Branches (zwischen dem Remote- und dem lokalen Repo) auf einen Stand bringen soll
 hint: You have divergent branches and need to specify how to reconcile them.
 hint: You can do so by running one of the following commands sometime before
 hint: your next pull:
@@ -1158,19 +1161,21 @@ hint: preference for all repositories. You can also pass --rebase, --no-rebase,
 hint: or --ff-only on the command line to override the configured default per
 hint: invocation.
 fatal: Need to specify how to reconcile divergent branches.
+
+## (An der Stelle kann ein Texteditor geöffnet worden sein, um die Commit-Nachricht für den neuen Merge-Commit zu editieren: Ihr könnt die Nachricht editieren. Schließt am Ende den Editor, um den pull-Vorgang fortzusetzen.)
 </code></pre>
-<p>Wir entscheiden uns für <code>merge</code>. <code>rebase</code> ist ein Verfahren, dass im Gegensatz zu <code>merge</code> keinen neuen Commit erzeugt, sondern lokal die Commits von UserB in die eigene History so einfügt, dass es so aussieht, als hätte UserA vor seinen eigenen Commits sich doch den aktuellen Stand des Remote-Repos via <code>git pull</code> geholt. <code>rebase</code> verändert also die History des Repos. Für diesen lokalen Anwendungsfall hier ist das kein Problem und es können <code>merge</code> und <code>rebase</code> gleichermaßen genutzt werden. <code>rebase</code> ist dagegen problematisch, wenn es direkt im Remote-Repo angewendet wird und mehrere User mit dem betroffenen Branch arbeiten: Ihre lokalen und Remote-Branches unterscheiden sich dann plötzlich und es hagelt Fehlermeldungen. Zuletzt noch zur dritten genannten Option <code>fast-forward only</code>: Sie würde unser Problem nicht lösen, da <em>Fast-Forward</em> genau den optimalen Fall meint, dass mein lokaler Branch keine dem Remote unbekannten Commits besitzt.</p>
-<p>Wir entscheiden uns also für <code>merge</code>, stellen das in der globalen Konfiguration ein und versuchen erneut, mit <code>git pull</code> die unterschiedlichen Commits von UserA und UserB lokal in einem Commit auf <code>master</code> zu verbinden. Wir schauen uns das Ergebnis im Log grafisch an und pushen das Ergebnis.</p>
-<pre><code>## pull-Methode einstellen, auf globalem Level, da merge in allen Fällen eine sichere Methode ist
+<p>Falls wir die Methode festlegen müssen, die <code>git pull</code> zum Verbinden unterschiedlicher Branch-Zustände nutzen soll, entscheiden wir uns für <code>merge</code>. <code>rebase</code> ist ein Verfahren, dass im Gegensatz zu <code>merge</code> keinen neuen Commit erzeugt, sondern lokal die Commits von UserB in die eigene History so einfügt, dass es so aussieht, als hätte UserA vor seinen eigenen Commits sich doch den aktuellen Stand des Remote-Repos via <code>git pull</code> geholt. <code>rebase</code> verändert also die History des Repos. Für diesen lokalen Anwendungsfall hier ist das kein Problem und es können <code>merge</code> und <code>rebase</code> gleichermaßen genutzt werden. <code>rebase</code> ist dagegen problematisch, wenn es direkt im Remote-Repo angewendet wird und mehrere User mit dem betroffenen Branch arbeiten: Ihre lokalen und Remote-Branches unterscheiden sich dann plötzlich und es hagelt Fehlermeldungen. Zuletzt noch zur dritten genannten Option <code>fast-forward only</code>: Sie würde unser Problem nicht lösen, da <em>Fast-Forward</em> genau den optimalen Fall meint, dass mein lokaler Branch keine dem Remote unbekannten Commits besitzt.</p>
+<p>Falls nötig, entscheiden wir uns also für <code>merge</code>, stellen das in der globalen Konfiguration ein und versuchen erneut, mit <code>git pull</code> die unterschiedlichen Commits von UserA und UserB lokal in einem Commit auf <code>master</code> zu verbinden. Wir schauen uns das Ergebnis im Log grafisch an und pushen das Ergebnis.</p>
+<pre><code>## falls nötig: pull-Methode einstellen, auf globalem Level, da merge in allen Fällen eine sichere Methode ist
 git config --global pull.rebase false
 
-## pull-Versuch wiederholen, es sollte nun automatisch ein neuer lokaler Commit erzeugt werden
+## falls nötig: pull-Versuch wiederholen, es sollte nun automatisch ein neuer lokaler Commit erzeugt werden
 git pull
 
 ## die Commit-Liste mit grafischer Repräsentation der zweitweise unterschiedlichen Branch-Zustände ansehen
 git log --graph
 
-## (Wir können hier den üblichen Kommentar eines Commits sehen, der von Git mit pull automatisch erzeugt worden ist: &quot;Merge branch 'master' of &lt;REPO&gt;&quot;. Und wir können sehen, dass der Commit von UserB nun auch als Verweis in unser lokalen Commit-History auftaucht.)
+## (Wir können hier den üblichen Kommentar eines Commits sehen, der von Git mit pull automatisch erzeugt worden ist: &quot;Merge branch 'master' of &lt;REPO&gt;&quot;. Und wir können sehen, dass der Commit von UserB nun auch als Verweis in unser lokalen Commit-History auftaucht. Die grafische Darstellung zeigt den kurzzeitig differierenden Zustand des Master-Branches zwischen UserA und UserB: UserB kannte zum Zeitpunkt seines Schema-Commits die drei Commits von UserA noch nicht. Die Linien zeigen hier also den Stand des gleichen Branches bei unterschiedlichen Usern.)
 ## (&quot;git log&quot; kann eventuell eine längere Liste an Commits anzeigen. Im Terminal wird diese Liste womöglich in Abschnitten angezeigt. Mit &quot;Leerzeichen&quot; könnt ihr zum nächsten Abschnitt wechseln und mit &quot;Q&quot; die Listenansicht verlassen.)
 
 ## Repo-Status anschauen: Unser lokaler Branch ist nun 4 Commits weiter als der Remote-Branch - mit den drei eigenen Commits und dem, der durch den pull-Befehl erzeugt worden ist
@@ -1179,16 +1184,16 @@ git status
 ## pushen
 git push
 </code></pre>
-<p>Voilá, UserA hat das Problem gelöst. Vor dem Committen den neuesten Stand zu pullen, hätte die Situation zwar verhindert. Aber Git als kollaboratives Versionierungstool bietet Möglichkeiten, mit solchen unterschiedlichen Zuständen von lokalem und Remote-Branch umzugehen. Dafür ist es gedacht. Das sehen wir jetzt auch im letzten Abschnitt dieses Szenarios.</p>
+<p>Voilá, UserA hat die unterschiedlichen Stände des Master-Branches angeglichen. Vor dem Committen den neuesten Stand zu pullen, hätte die Situation zwar verhindert. Aber Git als kollaboratives Versionierungstool bietet Möglichkeiten, mit solchen unterschiedlichen Zuständen von lokalem und Remote-Branch umzugehen. Dafür ist es gedacht. Das sehen wir jetzt auch im letzten Abschnitt dieses Szenarios, in dem Konflikte in ein und derselben Datei auftreten.</p>
 <hr />
 <p><img src="../../images/attention_symbol.png" alt="Attention" width="25"/> <em>Im Terminal in das Repo von UserB wechseln.</em></p>
 <p><strong>UserB</strong> seinerseits vergisst nun auch, sich zu Beginn seiner Arbeit am Repo den neuesten Stand vom Remote herunterzuladen. Entgegen der abgesprochenen Aufteilung der Aufgaben möchte er spontan für die <code>readme.md</code> des Repos einen ersten Vorschlag zum Projekt beisteuern.</p>
 <pre><code>## Dummy-Datei mit anderer Überschrift anlegen, als UserA in seiner Version verwendet hat
 rm -f readme.md
-echo # Korpus&gt;readme.md
+echo &quot;# Korpus&quot; &gt; readme.md
 </code></pre>
 <p>UserB staged die Änderung, erzeugt einen Commit und versucht ihn zu pushen.</p>
-<pre><code>## die readme.md stagen
+<pre><code>## readme.md stagen
 git add readme.md
 
 ## überprüfen, welche Dateien für den folgenden Commit gestaged sind
@@ -1201,11 +1206,11 @@ git commit -m &quot;Projekt-Readme-Entwurf&quot;
 ## pushen
 git push
 </code></pre>
-<p>UserB wird zuächst wie UserA auch aufgefordert zu entscheiden, mit welcher Methode <code>git pull</code> verschiedene Branch-Zustände zwischen lokalem und Remote-Branch vereinen soll. UserB entscheidet sich für <code>merge</code> und versucht erneut zu pullen.</p>
-<pre><code>## pull-Methode einstellen
+<p>UserB wird - wie wir es bereits bei UserA gesehen haben - auf einen Konflikt hingewiesen und gebeten, den neuesten Stand des Remote-Masters zu pullen. Eventuell wird auch er dabei aufgefordert zu entscheiden, mit welcher Methode <code>git pull</code> verschiedene Branch-Zustände zwischen lokalem und Remote-Branch vereinen soll. UserB entscheidet sich in diese mFall ebenso wie UserA für <code>merge</code>.</p>
+<pre><code>## falls nötig: pull-Methode einstellen
 git config --global pull.rebase false
 
-## pull-Versuch wiederholen
+## pull-Versuch
 git pull
 </code></pre>
 <p>Im Gegensatz zur Situation von UserA kann Git hier die Commits von lokalem und Remote-Branch nicht einfach verbinden, denn UserA und UserB haben jeweils die erste Zeile der <code>readme.md</code> verändert. Git kann somit nicht entscheiden, welche Version die gewünschte ist, und übergibt die Entscheidung dem User:</p>
@@ -1213,7 +1218,7 @@ git pull
 CONFLICT (content): Merge conflict in readme.md
 Automatic merge failed; fix conflicts and then commit the result.
 </code></pre>
-<p>Um den Konflikt manuell zu lösen, muss UserA die <code>readme.md</code> in seinem Working Tree mit einem Text- oder Code-Editor öffnen. Dort fällt auf, dass Git den Inhalt der Datei verändert hat:</p>
+<p>Um den Konflikt manuell zu lösen, muss UserB die <code>readme.md</code> in seinem Working Tree mit einem Text- oder Code-Editor öffnen. Dort fällt auf, dass Git den Inhalt der Datei verändert hat:</p>
 <pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
 # Korpus
 =======
@@ -1222,11 +1227,14 @@ Automatic merge failed; fix conflicts and then commit the result.
 </code></pre>
 <p>Die Schreibweise markiert hier, wo der Konflikt sich befindet und welche Version der ersten Zeile des Dokuments von welchem Repo kommt: <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> markiert den Beginn des Konflikts. Die folgenden Zeilen bis <code>=======</code> sind die Version des sogenannten Basis- oder Head-Branches, also des Branches, der das Ziel der Merge-Prozedur ist - in diesem Fall ist das die Version von UserB auf seinem lokalen <code>master</code>-Branch. Zwischen <code>=======</code> und <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> folgt die Version des Branches, der in den Basis-Branch gemergt werden soll: die Version von UserA aus dem Remote-<code>master</code>.</p>
 <p>Um den Konflikt zu lösen, müssen die drei Zeilen mit den von Git gesetzten Steuerzeichen komplett gelöscht werden. UserB kann sich für eine der Varianten entscheiden oder die Zeile anders schreiben. Am Ende jedenfalls muss die Datei gespeichert, neu gestaged und committet werden. Wenn das für alle Dateien mit manuell zu lösenden Merge-Konflikten erledigt ist, ist der pull-Vorgang abgeschlossen. Die Änderungen können dann sofort gepusht werden.</p>
-<pre><code>## stagen nach dem manuellen Lösen des Konflikts
+<pre><code>## status anzeigen: readme.md ist hier noch als Konflikt-Datei markiert
+git status
+
+## stagen nach dem manuellen Lösen des Konflikts
 git add readme.md
 
 ## commit
-git commit -m &quot;Merge-Konflikt gelöst&quot;
+git commit -m &quot;Merge-Konflikt gelöst: Überschrift in Readme.md&quot;
 
 ## zum Testen: einmal pullen - der pull-Vorgang ist jedoch schon abgeschlossen
 git pull
@@ -1242,17 +1250,20 @@ git push
 <hr />
 <p><img src="../../images/attention_symbol.png" alt="Attention" width="25"/> <em>Im Terminal in das Repo von UserA wechseln.</em></p>
 <p><strong>UserA</strong> legt in seinem lokalen Repo einen <code>/website</code>-Ordner an, fügt eine <code>index.html</code> mit einem Hauptmenü sowie die dazugehörigen Pages im Ordner <code>/pages</code> hinzu. Schließlich staged, committet und pusht er das Ganze als einen initialen Commit.</p>
-<pre><code>## Ordner und Dateien anlegen
+<pre><code>## tägliche Routine: aktuell aktiven Branch herausfinden und aktuellen Stand herunterladen
+git status
+git pull
+
+## Ordner und Dateien anlegen
 mkdir &quot;website&quot;
 cd website
-echo Hauptmenu: Projekt, Korpus, Schema&gt;index.html
-mkdir pages
+echo &quot;Hauptmenu: Projekt, Korpus, Schema&quot; &gt; index.html
+mkdir &quot;pages&quot;
 cd pages
-echo Lorem Ipsum&gt;projekt.html
-echo Lorem Ipsum&gt;korpus.html
-echo Lorem Ipsum&gt;schema.html
-cd ..
-cd ..
+echo &quot;Lorem Ipsum&quot; &gt; projekt.html
+echo &quot;Lorem Ipsum&quot; &gt; korpus.html
+echo &quot;Lorem Ipsum&quot; &gt; schema.html
+cd ../..
 
 ## alle Änderungen stagen
 git add --all
@@ -1290,13 +1301,12 @@ git branch -avv
 <pre><code>## in index.html den neuen Menüpunkt &quot;Suche&quot; hinzufügen
 cd website
 rm -f index.html
-echo Hauptmenu: Projekt, Korpus, Schema, Suche&gt;index.html
+echo &quot;Hauptmenu: Projekt, Korpus, Schema, Suche&quot; &gt; index.html
 
 ## neue Suche-Page hinzufügen
 cd pages
-echo Lorem Ipsum&gt;suche.html
-cd ..
-cd ..
+echo &quot;Lorem Ipsum&quot; &gt; suche.html
+cd ../..
 
 ## alle Änderungen stagen
 git add --all
@@ -1358,7 +1368,20 @@ git branch -avv
 <hr />
 <p><img src="../../images/attention_symbol.png" alt="Attention" width="25"/> <em>Im Terminal in das Repo von UserA wechseln.</em></p>
 <p><strong>UserA</strong> will sich einige Zeit später nochmal den <code>suchfunktion</code>-Branch anschauen und versucht den neuesten Stand zu pullen, bekommt aber natürlich eine Fehlermeldung, da UserB den Branch im Remote-Repo ja schon gelöscht hat. UserA schaut verwirrt auf die Branch-Liste, die <code>git branch -avv</code> ihm ausgibt: Da wird <code>remotes/origin/suchfunktion</code> noch als existent angezeigt.</p>
-<p>Das Problem ist hier, dass ein einfacher <code>git fetch</code>-Befehl nicht ausreicht, um die Liste der lokalen Verknüpfungen zu den Remote-Branches zu aktualisieren: Alle anderen User müssen, nachdem ein anderer User einen Remote-Branch löscht, ihre lokalen Verknüpfungen aktualisieren: <code>git fetch --all --prune</code>. Damit werden alle lokalen Verknüpfungen zu Remote-Branches, die nicht mehr existieren, entfernt und <code>git branch -avv</code> sollte nun die aktuelle Situation korrekt anzeigen.</p>
+<p>Das Problem ist hier, dass ein einfacher <code>git fetch</code>-Befehl (der mit <code>git pull</code> ausgeführt wird) nicht ausreicht, um die Liste der lokalen Verknüpfungen zu den Remote-Branches zu aktualisieren: Alle anderen User müssen, nachdem ein anderer User einen Remote-Branch löscht, ihre lokalen Verknüpfungen aktualisieren: <code>git fetch --all --prune</code>. Damit werden alle lokalen Verknüpfungen zu Remote-Branches, die nicht mehr existieren, entfernt und <code>git branch -avv</code> sollte nun die aktuelle Situation des Remote-Repos korrekt anzeigen.</p>
+<p>Was für UserA bleibt, ist sein lokaler <code>suchfunktion</code>-Branch. Da er weiß, dass UserB inzwischen die Suchfunktion in den Master gemergt hat, wechselt aktiviert er seinen lokalen Master, aktualisiert ihn und löscht den nun funktionslosen lokalen <code>suchfunktion</code>-Branch.</p>
+<pre><code>## die korrekte Branch-Liste vom Remote-Repo beziehen
+git fetch --all --prune
+
+## auf den Master-Branch wechseln, um die neuesten Commits zu beziehen und im Anschluss den lokalen suchfunktion-Branch löschen zu können
+git checkout master
+
+## den Merge-Commit auf dem Master-Branch zur Suchfunktion von UserB beziehen
+git pull
+
+## den lokalen suchfunktion-Branch löschen
+git branch -d suchfunktion
+</code></pre>
 <p>Davon abgesehen ändert UserA noch eine Kleinigkeit in der <code>index.html</code> und im <code>/pages</code>-Ordner: Den Titel der Seite "Schema" schreibt er in "Schemata" um, da das Projekt eventuell mehrere Schemata publizieren wird. Am Ende staged, committet und pusht er die Änderungen.</p>
 <pre><code>## prüfen, ob er auf dem master-Branch ist
 git status
@@ -1369,14 +1392,13 @@ git checkout master
 ## index.html ändern
 cd website
 rm -f index.html
-echo Hauptmenu: Projekt, Korpus, Schemata, Suche&gt;index.html
+echo &quot;Hauptmenu: Projekt, Korpus, Schemata, Suche&quot; &gt; index.html
 
 ## Name von schema.html ändern
 cd pages
 rm -f schema.html
-echo Lorem Ipsum&gt;schemata.html
-cd ..
-cd ..
+echo &quot;Lorem Ipsum&quot; &gt; schemata.html
+cd ../..
 
 ## stagen
 git add --all
@@ -1392,9 +1414,6 @@ git push
 <p><strong>UserB</strong> entwickelt derweil eine Changelog-Seite auf einem neuen Feature-Branch <code>changelog</code>. In unserer fiktiven Timeline hat UserB damit bereits begonnen, bevor UserA seine letzten Änderungen committet hat. Das heißt in dieser Situation: UserB hat keine Chance, die letzten Änderungen von UserA zu pullen, bevor er den neuen Branch <code>changelog</code> eröffnet.</p>
 <pre><code>## prüfen, auf welchem Branch wir uns befinden
 git status
-
-## auf den master-Branch wechseln, falls nötig
-git checkout master
 
 ## den aktuellsten Commit auf dem master-Branch anschauen
 git show HEAD
@@ -1413,13 +1432,12 @@ git branch -avv
 ## in index.html den neuen Menüpunkt &quot;Changelog&quot; hinzufügen
 cd website
 rm -f index.html
-echo Hauptmenu: Projekt, Korpus, Schema, Suche, Changelog&gt;index.html
+echo &quot;Hauptmenu: Projekt, Korpus, Schema, Suche, Changelog&quot; &gt; index.html
 
 ## neue Suche-Page hinzufügen
 cd pages
-echo Lorem Ipsum&gt;changelog.html
-cd ..
-cd ..
+echo &quot;Lorem Ipsum&quot; &gt; changelog.html
+cd ../..
 
 ## alle Änderungen stagen
 git add --all
@@ -1450,7 +1468,7 @@ git merge changelog
 CONFLICT (content): Merge conflict in website/index.html
 Automatic merge failed; fix conflicts and then commit the result.
 </code></pre>
-<p>Git übergibt die Kontrolle dem User. Um den Konflikt manuell zu lösen, muss UserB die <code>readme.md</code> in seinem Working Tree mit einem Text- oder Code-Editor öffnen. Dort fällt erneut auf, dass Git den Inhalt der Datei verändert hat:</p>
+<p>Git übergibt die Kontrolle dem User. Um den Konflikt manuell zu lösen, muss UserB die <code>index.html</code> in seinem Working Tree mit einem Text- oder Code-Editor öffnen. Dort fällt erneut auf, dass Git den Inhalt der Datei verändert hat:</p>
 <pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
 Hauptmenu: Projekt, Korpus, Schemata, Suche
 =======
@@ -1460,13 +1478,13 @@ Hauptmenu: Projekt, Korpus, Schema, Suche, Changelog
 <p>Die Schreibweise markiert hier, wo der Konflikt sich befindet und welche Version der ersten Zeile des Dokuments von welchem Repo kommt: <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> markiert den Beginn des Konflikts. Die folgenden Zeilen bis <code>=======</code> sind die Version des sogenannten Basis- oder Head-Branches, also des Branches, der das Ziel der Merge-Prozedur ist - in diesem Fall ist das die Version von UserA auf seinem lokalen <code>master</code>-Branch. Zwischen <code>=======</code> und <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> folgt die Version des Branches, der in den Basis-Branch gemergt werden soll: die Version von UserB aus <code>changelog</code>.</p>
 <p>Um den Konflikt zu lösen, müssen die drei Zeilen mit den von Git gesetzten Steuerzeichen komplett gelöscht werden. UserB kann sich für eine der Varianten entscheiden oder die Zeile anders schreiben. Die Lösung hier ist <code>Hauptmenu: Projekt, Korpus, Schemata, Suche, Changelog</code>. Am Ende muss die Datei gespeichert, neu gestaged und committet werden. Wenn das für alle Dateien mit manuell zu lösenden Merge-Konflikten erledigt ist, ist der <code>merge</code>-Vorgang abgeschlossen. Der aktualisierte lokale <code>master</code> mit dem neuen Merge-Commit kann dann sofort gepusht werden.</p>
 <pre><code>## stagen nach dem manuellen Lösen des Konflikts
-git add index.html
+git add website/index.html
 
 ## commit
-git commit -m &quot;Merge-Konflikt gelöst&quot;
+git commit -m &quot;Merge-Konflikt gelöst: Changelog in Master integriert&quot;
 
-## prüfen, ob alle Commits von UserA und UserB nun sich im master-Branch befinden
-git log
+## Abweichungen zwischen den Branches anschauen
+git log --graph
 
 ## pushen
 git push
