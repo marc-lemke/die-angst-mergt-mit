@@ -768,6 +768,26 @@
 
               
             
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-geisterstunde-von-unerreichbaren-und-baumelnden-commits/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    upcoming --> 13 Geisterstunde - von unerreichbaren und baumelnden Commits
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1494,13 +1514,13 @@ git branch -avv
 <p><strong>Git Branch Manager</strong> zeigt euch die derzeit lokal bekannten lokalen und Remote-Branches an. Hier könnt ihr den aktuellen lokalen Branch wechseln (<em>auschecken</em>) und neue lokale Branches anlegen sowie löschen. Klickt mit der rechten Maustaste auf einen Branch, um die zur Verfügung stehenden Optionen zu sehen.</p>
 <p><img src="../../images/screenshot_git-client-add-on-fuer-oxygen-xml-editor_04.png" alt="Fenster anzeigen: Git Branch Manager, Git Historie, Git Staging" title="Fenster anzeigen: Git Branch Manager, Git Historie, Git Staging" width="700" style="border: 2px solid black"/></p>
 <h5 id="git-historie">Git Historie</h5>
-<p><strong>Git Historie</strong> zeigt euch die gesamte Historie des Repos an und bietet euch Möglichkeiten zum Filtern der Ansicht sowie spezielle Aktionen, die die einzelnen Commits betreffen. Hier können etwa einzelne Branches ausgecheckt werden. Klickt mit der rechten Maustaste auf einen Commit, um die zur Verfügung stehenden Aktionen zu sehen. Es handelt sich um:</p>
+<p><strong>Git Historie</strong> zeigt euch die gesamte Historie des Repos an und bietet euch Möglichkeiten zum Filtern der Ansicht sowie spezielle Aktionen, die die einzelnen Commits betreffen. Hier können etwa neue Branches von Commits aus erzeugt werden. Klickt mit der rechten Maustaste auf einen Commit, um die zur Verfügung stehenden Aktionen zu sehen. Es handelt sich um:</p>
 <ul>
-<li>Branch erstellen (<code>git checkout -b &lt;name of new branch&gt;</code>),</li>
-<li>Tag erstellen (<code>git tag -a &lt;tag name&gt; &lt;hash value of commit&gt; -m "Tag-Kommentar"</code>),</li>
-<li>Checkout (<code>git checkout &lt;hash value of commit&gt;</code>),</li>
-<li>Commit zurücknehmen (<code>git revert &lt;hash value of commit</code>),</li>
-<li>"Branch" auf diesen Commit zurücksetzen (<code>git reset &lt;hash value of commit&gt;</code> mit den Flags <code>--soft</code>, <code>--mixed</code> oder <code>--hard</code>)</li>
+<li>Branch erstellen (<code>git checkout -b &lt;name of new branch&gt;</code>: vom ausgewählten Commit aus einen neuen lokalen Branch beginnen),</li>
+<li>Tag erstellen (<code>git tag -a &lt;tag name&gt; &lt;hash value of commit&gt; -m "Tag-Kommentar"</code>: für den ausgewählten einen neuen lokalen Tag definieren),</li>
+<li>Checkout (<code>git checkout &lt;hash value of commit&gt;</code>: den ausgewählten lokalen Commit auschecken und damit in den detached HEAD-Modus wechseln),</li>
+<li>Commit zurücknehmen (<code>git revert &lt;hash value of commit</code>: einen neuen Commit im aktuell ausgewählten lokalen Branch erzeugen, der die Änderungen des ausgewählten Commits rückgängig macht),</li>
+<li>"Branch" auf diesen Commit zurücksetzen (<code>git reset &lt;hash value of commit&gt;</code> mit den Flags <code>--soft</code>, <code>--mixed</code> oder <code>--hard</code>: den Branch auf den Stand des ausgewählten Commits zurücksetzen, mehr dazu in <a href="../7-fehler-rueckgaengig-machen/">Experiment #7</a>)</li>
 </ul>
 <p><img src="../../images/screenshot_git-client-add-on-fuer-oxygen-xml-editor_05.png" alt="Fenster anzeigen: Git Branch Manager, Git Historie, Git Staging" title="Fenster anzeigen: Git Branch Manager, Git Historie, Git Staging" width="700" style="border: 2px solid black"/></p>
 <h3 id="visual-studio-code-vscode-mit-git-graph-extension">Visual Studio Code (VSCode) mit Git Graph-Extension</h3>
