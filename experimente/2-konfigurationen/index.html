@@ -801,6 +801,7 @@ git config --global user.email &quot;mm@example.com&quot;
 <li><code>user.name</code> und <code>user.email</code> (lokal oder global): Ohne diese Werte ist es nicht möglich, einen Commit zu machen.</li>
 <li><code>core.autocrlf</code> (system): Diese Werte sollte bei Windows-System auf <code>true</code> und bei allen anderen Betriebssystemen auf <code>input</code> gesetzt sein. Da Windows-System das Ende einer Zeile in Textdateien anders codieren als Linux- und Mac-System, muss beim kollaborativen Arbeiten gewährleistet sein, dass a) in allen Textdateien die gleiche Zeilenend-Codierung verwendet wird und b) dass alle User lokal in ihrem Working Tree die Textdateien für ihr Betriebssystem korrekt angezeigt bekommen. Ansonsten kann es dazu kommen, dass Änderungen in der Zeilenend-Codierung von Git als Änderungen in der Datei erkannt und gespeichert werden. Damit wird die History mit belanglosen Änderungen geflutet.</li>
 </ul>
+<!-- nützlich: git config --global init.defaultBranch trunk; siehe https://stackoverflow.com/questions/42871542/how-can-i-create-a-git-repository-with-the-default-branch-name-other-than-maste -->
 
 
 
