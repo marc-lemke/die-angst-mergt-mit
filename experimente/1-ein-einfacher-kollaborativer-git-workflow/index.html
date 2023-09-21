@@ -952,7 +952,7 @@
 <li>A: den Aufbau eines Text-Korpus und</li>
 <li>B: die Entwicklung einer Website.</li>
 </ul>
-<p>In den Szenarien werden Git-Befehle im Terminal verwendet. Am Ende dieses Experiments stelle ich aber auch noch <strong>Tools mit grafischen Benutzeroberflächen</strong> vor, die in der täglichen Arbeit mit Git verwendet werden können: das <a href="#git-client-add-on-fur-oxygen-xml-editor">Git Client Add-On für den Oxygen XML Editor</a>, den Code-Editor <a href="#visual-studio-code-vscode-mit-git-graph-extension">VSCode mit der <em>Git Graph</em>-Extension</a> und die Software <a href="#github-desktop">GitHub Desktop</a>.</p>
+<p>In den Szenarien werden Git-Befehle im Terminal verwendet. (Windows-User sollten hier <em>Git Bash</em> nutzen, da die Dateipfade im Tutorial durchweg im UNIX-Format mit <code>/</code> geschrieben sind.) Am Ende dieses Experiments stelle ich aber auch noch <strong>Tools mit grafischen Benutzeroberflächen</strong> vor, die in der täglichen Arbeit mit Git verwendet werden können: das <a href="#git-client-add-on-fur-oxygen-xml-editor">Git Client Add-On für den Oxygen XML Editor</a>, den Code-Editor <a href="#visual-studio-code-vscode-mit-git-graph-extension">VSCode mit der <em>Git Graph</em>-Extension</a> und die Software <a href="#github-desktop">GitHub Desktop</a>.</p>
 <p>Sollten hier Begriffe fallen, die euch unklar sind, schaut einmal in der <a href="../../was-ist/">Was ist ... ?</a>-Abteilung nach.</p>
 <h2 id="szenario-a-text-korpus">Szenario A: Text-Korpus</h2>
 <p>Das Projekt-Team will ein Text-Korpus aufbauen und veröffentlichen, es fallen mehrere Aufgaben an: Textquellen ausfindig machen, Texte auswählen, ein Dateiformat und Textschema für das Korpus definieren, Texte in das gewählte Schema bringen und die Arbeit sowie das Korpus dokumentieren.</p>
@@ -1387,7 +1387,7 @@ git status
 ## lokalem und Remote-Branch anzeigen lassen
 git branch -avv
 </code></pre>
-<p>Die Übersicht über die Branches verrät, dass es zu <code>suchfunktion</code> aktuell noch keinen dazugehörigen Remote-Branch <code>remotes/origin/suchfunktion</code> gibt. Im Moment hat UserB nur einen lokalen Branch angelegt: Dieser wird erst mit <code>git push</code> vom Branch <code>suchfunktion</code> aus veröffentlicht. Prinzipiell kann man Branches auch als reine Lokal-Branches nutzen, die man nich veröffentlichen wollen: Pushes von anderen lokalen Branches aus veröffentlichen <code>suchfunktion</code> nicht.</p>
+<p>Die Übersicht über die Branches verrät, dass es zu <code>suchfunktion</code> aktuell noch keinen dazugehörigen Remote-Branch <code>remotes/origin/suchfunktion</code> gibt. Im Moment hat UserB nur einen lokalen Branch angelegt: Dieser wird erst mit <code>git push</code> vom Branch <code>suchfunktion</code> aus veröffentlicht. Prinzipiell kann man Branches auch als reine Lokal-Branches nutzen, die man nicht veröffentlichen wollen: Pushes von anderen lokalen Branches aus veröffentlichen <code>suchfunktion</code> nicht.</p>
 <p>UserB entwickelt im Folgenden das Feature, staged und committet die Änderungen und macht seinen Feature-Branch im Remote-Repo für die anderen Projekt-Mitglieder sichtbar:</p>
 <pre><code>## in index.html den neuen Menüpunkt &quot;Suche&quot; hinzufügen
 cd website
@@ -1466,8 +1466,7 @@ git branch -d suchfunktion
 ## die Remote-Version und die lokale Version des
 ## Branches sich unterscheiden. Um auch in diesem
 ## Fall den lokalen Branch zu löschen, muss die
-## Flag &quot;-D&quot; verwendet werden:
-## &quot;git branch -D suchfunktion&quot;.
+## Flag &quot;-D&quot; verwendet werden: &quot;git branch -D suchfunktion&quot;.
 
 ## den Remote-Branch &quot;suchfunktion&quot; löschen
 git push -d origin suchfunktion
@@ -1481,7 +1480,10 @@ git branch -avv
 <p><strong>UserA</strong> will sich einige Zeit später nochmal den <code>suchfunktion</code>-Branch anschauen und versucht den neuesten Stand zu pullen, bekommt aber natürlich eine Fehlermeldung, da UserB den Branch im Remote-Repo ja schon gelöscht hat. UserA schaut verwirrt auf die Branch-Liste, die <code>git branch -avv</code> ihm ausgibt: Da wird <code>remotes/origin/suchfunktion</code> noch als existent angezeigt.</p>
 <p>Das Problem ist hier, dass ein einfacher <code>git fetch</code>-Befehl (der mit <code>git pull</code> ausgeführt wird) nicht ausreicht, um die Liste der lokalen Verknüpfungen zu den Remote-Branches zu aktualisieren: Alle anderen User müssen, nachdem ein User einen Remote-Branch löscht, ihre lokalen Verknüpfungen aktualisieren: <code>git fetch --all --prune</code>. Damit werden alle lokale Verknüpfungen zu Remote-Branches, die nicht mehr existieren, entfernt und <code>git branch -avv</code> sollte nun die aktuelle Situation des Remote-Repos korrekt anzeigen.</p>
 <p>Was UserA bleibt, ist sein lokaler <code>suchfunktion</code>-Branch. Da er weiß, dass UserB inzwischen die Suchfunktion in den Master gemergt hat, aktiviert er seinen lokalen Master, aktualisiert ihn und löscht den nun funktionslosen lokalen <code>suchfunktion</code>-Branch.</p>
-<pre><code>## die korrekte Branch-Liste vom Remote-Repo beziehen
+<pre><code>## die korrekte Branch-Liste vom Remote-Repo beziehen:
+## von allen Branches den neuesten Stand beziehen
+## und lokale Verknüpfungen zu nicht mehr
+## existierenden Remote-Branches löschen
 git fetch --all --prune
 
 ## auf den Master-Branch wechseln, um im
@@ -1491,7 +1493,12 @@ git fetch --all --prune
 git checkout master
 
 ## den Merge-Commit auf dem Master-Branch
-## zur Suchfunktion von UserB beziehen
+## von UserB beziehen (mit &quot;git pull&quot;
+## fetchen wir nochmal den neusten Stand, was wir
+## zwei Befehle zuvor schon einmal getan haben,
+## und mergen ihn in den lokalen Master.
+## Alternativ könnte man hier also anstatt &quot;pull&quot;
+## auch nur &quot;merge&quot; verwenden: &quot;git merge origin master&quot;.)
 git pull
 
 ## den lokalen suchfunktion-Branch löschen
@@ -1609,7 +1616,7 @@ Hauptmenu: Projekt, Korpus, Schemata, Suche
 Hauptmenu: Projekt, Korpus, Schema, Suche, Changelog
 &gt;&gt;&gt;&gt;&gt;&gt;&gt; changelog
 </code></pre>
-<p>Wie gehabt: Die Schreibweise markiert hier, wo der Konflikt sich genau befindet und welche Version der betroffenen Zeile im Dokument von welchem Repo kommt. <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> markiert den Beginn des Konflikts. Die folgenden Zeilen bis <code>=======</code> sind die Version des sogenannten Basis- oder Head-Branches, also des Branches, der das Ziel der Merge-Prozedur ist - in diesem Fall ist das die Version von UserA auf seinem lokalen <code>master</code>-Branch. Zwischen <code>=======</code> und <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> folgt die Version des Branches, der in den Basis-Branch gemergt werden soll: die Version von UserB aus <code>changelog</code>.</p>
+<p>Wie gehabt: Die Schreibweise markiert hier, wo der Konflikt sich genau befindet und welche Version der betroffenen Zeile im Dokument von welchem Repo kommt. <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> markiert den Beginn des Konflikts. Die folgenden Zeilen bis <code>=======</code> sind die Version des sogenannten Basis- oder Head-Branches, also des Branches, der das Ziel der Merge-Prozedur ist - in diesem Fall ist das die Version von UserA auf dem lokalen <code>master</code>-Branch von UserB. Zwischen <code>=======</code> und <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> folgt die Version des Branches, der in den Basis-Branch gemergt werden soll: die Version von UserB aus <code>changelog</code>.</p>
 <p>Um den Konflikt zu lösen, müssen die drei Zeilen mit den von Git gesetzten Steuerzeichen komplett gelöscht werden. UserB kann sich für eine der Varianten entscheiden oder die Zeile anders schreiben. Die Lösung hier ist <code>Hauptmenu: Projekt, Korpus, Schemata, Suche, Changelog</code>. Am Ende muss die Datei gespeichert, neu gestaged und committet werden. Wenn das für alle Dateien mit manuell zu lösenden Merge-Konflikten erledigt ist, ist der <code>merge</code>-Vorgang abgeschlossen. Der aktualisierte lokale <code>master</code> mit dem neuen Merge-Commit kann dann sofort gepusht werden.</p>
 <pre><code>## stagen nach dem manuellen Lösen des Konflikts
 git add website/index.html
