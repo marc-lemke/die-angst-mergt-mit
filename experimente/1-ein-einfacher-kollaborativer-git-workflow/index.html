@@ -1007,7 +1007,7 @@
 </tbody>
 </table>
 <p>Wenn die Projektgruppe sehr klein ist und die Aufgaben so verteilt sind, dass es kaum dazu kommt, dass mehrere User die selben Dateien editieren, ist es kein Problem, wenn alle Beteiligten auf dem selben Branch arbeiten: Es wird selten zu Merge-Konflikten kommen. Das bedeutet nicht, das ein Merge-Konflikt ein unbedingt zu vermeidender Ausnahmezustand ist. Im kollaborativen Arbeiten sind Konflikte im Gegenteil eine erwartbare, normale Situation. Wir werden sehen: Git bietet genau dafür den Usern Funktionen, um damit umzugehen. Aber es beschleunigt andererseits natürlich die Projekt-Arbeit auf lange Sicht, wenn die Anzahl der Situationen, in denen Merge-Konflikte zu lösen sind, gering ist.</p>
-<p>Da das Projekt-Team plant, das Korpus wie eine Software versioniert zu veröffentlichen, soll das Repo insgesamt zwei Branches haben: einen Arbeitsbranch und einen, auf dem nur die fertigen Releases als Merge-Commits gespeichert werden. Unabhängig der Gepflogenheit, den <code>master</code> für Releases zu nutzen und nebenbei einen <code>develop</code>-Branch für die tägliche Arbeit zu haben, werden sie auf dem <code>master</code> arbeiten und für die Veröffentlichungen den Branch <code>releases</code> einrichten: Der <code>master</code> ist in Git kein besonderer Branch, sondern einfach nur eine Benennungskonvention für den ersten Branch.</p>
+<p>Da das Projekt-Team plant, das Korpus wie eine Software versioniert zu veröffentlichen, soll das Repo zwei Branches haben: einen Arbeitsbranch und einen, auf dem nur die Releases hergestellt werden. Unabhängig der Gepflogenheit, den <code>master</code> für fertige Releases zu nutzen und nebenbei einen <code>develop</code>-Branch für die tägliche Arbeit zu haben, werden sie auf dem <code>master</code> arbeiten und die fertigen Releases auf dem <code>releases</code>-Branch mit Tags markieren: Der <code>master</code> ist in Git kein besonderer Branch, sondern einfach nur eine Benennungskonvention für den ersten Branch.</p>
 <p>Die Projekt-Arbeit beginnt ...</p>
 <hr />
 <p><img src="../../images/attention_symbol.png" alt="Attention" width="25"/> <em>Jetzt im Terminal in das Repo von UserA wechseln</em></p>
@@ -1227,7 +1227,7 @@ fatal: Need to specify how to reconcile divergent branches.
 ## Merge-Commit zu editieren: Ihr könnt die Nachricht editieren.
 ## Schließt am Ende den Editor, um den pull-Vorgang fortzusetzen.
 </code></pre>
-<p>Falls wir die Methode festlegen müssen, die <code>git pull</code> zum Verbinden unterschiedlicher Branch-Zustände nutzen soll, entscheiden wir uns für <code>merge</code>. <code>rebase</code> ist ein Verfahren, dass im Gegensatz zu <code>merge</code> keinen neuen Commit erzeugt, sondern lokal die Commits von UserB in die eigene History so einfügt, dass es so aussieht, als hätte UserA vor seinen eigenen Commits sich doch den aktuellen Stand des Remote-Repos via <code>git pull</code> geholt. <code>rebase</code> verändert also die History des Repos. Für diesen lokalen Anwendungsfall hier ist das kein Problem und es können <code>merge</code> und <code>rebase</code> gleichermaßen genutzt werden. <code>rebase</code> ist dagegen problematisch, wenn es direkt im Remote-Repo angewendet wird und mehrere User mit dem betroffenen Branch arbeiten: Ihre lokalen und Remote-Branches unterscheiden sich dann plötzlich und es hagelt Fehlermeldungen. Zuletzt noch zur dritten genannten Option <code>fast-forward only</code>: Sie würde unser Problem nicht lösen, da <em>Fast-Forward</em> genau den optimalen Fall meint, dass mein lokaler Branch keine dem Remote unbekannten Commits besitzt.</p>
+<p>Falls wir die Methode festlegen müssen, die <code>git pull</code> zum Verbinden unterschiedlicher Branch-Zustände nutzen soll, entscheiden wir uns für <code>merge</code>. <code>rebase</code> ist ein Verfahren, dass im Gegensatz zu <code>merge</code> keinen neuen Commit erzeugt, sondern lokal die Commits von UserB in die eigene History so einfügt, dass es so aussieht, als hätte UserA vor seinen eigenen Commits sich doch den aktuellen Stand des Remote-Repos via <code>git pull</code> geholt. <code>rebase</code> verändert also die History des Repos. Für diesen lokalen Anwendungsfall hier ist das kein Problem und es können <code>merge</code> und <code>rebase</code> gleichermaßen genutzt werden. <code>rebase</code> ist dagegen problematisch, wenn es direkt im Remote-Repo angewendet wird und mehrere User mit dem betroffenen Branch arbeiten: Ihre lokalen und Remote-Branches unterscheiden sich dann plötzlich in ihrer History und es hagelt Fehlermeldungen. Zuletzt noch zur dritten genannten Option <code>fast-forward only</code>: Sie würde unser Problem nicht lösen, da <em>Fast-Forward</em> genau den optimalen Fall meint, dass mein lokaler Branch keine dem Remote unbekannten Commits besitzt.</p>
 <p>Falls nötig, entscheiden wir uns also für <code>merge</code>, stellen das in der globalen Konfiguration ein und versuchen erneut, mit <code>git pull</code> die unterschiedlichen Commits von UserA und UserB lokal in einem Commit auf <code>master</code> zu verbinden. Wir schauen uns das Ergebnis im Log grafisch an und pushen das Ergebnis.</p>
 <pre><code>## falls nötig: pull-Methode einstellen, auf globalem Level,
 # da merge in allen Fällen eine sichere Methode ist
@@ -1331,7 +1331,7 @@ git pull
 git push
 </code></pre>
 <p>Damit endet dieses kleine Szenario: Neben den täglichen Git-Routinen und den häufig verwendeten Git-Befehlen war vor allem zu sehen, wie man bei der kollaborativen Arbeit auf einem Branch mit Merge-Konflikten umgeht.</p>
-<p>Im zweiten Szenario nun ist die Arbeitsweise eine etwas andere: Hier arbeiten die Beteiligten auf unterschiedlichen Branches und müssen diese von Zeit und Zeit wieder auf einen Stand bringen. Auch wie man einen Release auf dem Release-Branch pusht und einen Versions-Tag zuweist, werden wir in diesem Szenario sehen.</p>
+<p>Im zweiten Szenario nun ist die Arbeitsweise eine etwas andere: Hier arbeiten die Beteiligten auf unterschiedlichen Branches und müssen diese von Zeit und Zeit wieder auf einen Stand bringen. Auch wie man einen Release auf dem Release-Branch herstellt und einen Versions-Tag zuweist, werden wir in diesem Szenario sehen.</p>
 <h2 id="szenario-b-website">Szenario B: Website</h2>
 <p>Das zweite Projekt-Team entwickelt eine Website. Auch sie richten sich einen <code>releases</code>-Branch ein, um die Commits mit den fertigen Versionen dort zu speichern, und auch hier findet die Entwicklung auf dem <code>master</code> statt. Anders als das Korpus-Team entwickeln aber die Projekt-Mitglieder jeweils einzelne Features (wie eine Such-Funktion oder das Hauptmenü oder eine Seite auf der Website) auf speziell dafür temporär angelegten Branches. Sobald ein Feature fertig ist, wird der Feature-Branch in den <code>master</code> gemergt.</p>
 <p>Dieses Vorgehen ist bei diesem Projekt sinnvoll, denn auf diese Weise können zwischenzeitlich, auch wenn ein Feature noch nicht ganz fertig entwickelt ist, die anderen Projekt-Mitglieder sich die Website schon einmal mit dem neuen Feature anschauen: Dafür wechseln sie einfach kurz auf den entsprechenden Feature-Branch, um sich einen Eindruck vom zukünftigen Zustand der Website in ihrem Working Tree zu verschaffen.</p>
@@ -1649,27 +1649,31 @@ git push -d origin changelog
 ## aktuelle Liste der lokalen und Remote-Branches anschauen
 git branch -avv
 </code></pre>
-<p>Das Projekt-Team ist sich einig, nun den ersten Release der Website zu veröffentlichen. Dafür wird UserB auf der Basis des letzten Commits auf dem Master-Branch einen neuen Branch <code>releases</code> erzeugen und dem Commit einen Tag <code>v0.1.0</code> geben:</p>
+<p>Das Projekt-Team ist sich einig, nun den ersten Release der Website zu veröffentlichen. Dafür wird UserB auf der Basis des letzten Commits auf dem Master-Branch einen neuen Branch <code>releases</code> erzeugen:</p>
 <pre><code>## prüfen, auf welchem Branch man sich befindet
 git status
 
 ## releases-Branch anlegen
-git checkout -b releases
+git checkout -b release-0.1.0
 
-## die hash-ID des aktuellen Commits heraussuchen
+## den releases-Branch pushen
+git push --set-upstream origin releases
+</code></pre>
+<p>Nun kann das Team die Website testen und Bug-Fixes auf dem <code>releases</code>-Branch einbauen. In der gleichen Zeit kann die Arbeit auf dem <code>master</code>-Branch weitergehen und es können beispielsweise bereits Features integriert werden, die erst für kommende Releases vorgesehen sind.</p>
+<p>Wenn der Stand der Website auf dem <code>releases</code>-Branch ausreichend getestet und für release-würdig befunden wurde, wird einem Commit des Branches ein Release-Tag zugewiesen:</p>
+<pre><code>## die hash-ID des aktuellen Commits heraussuchen
 git show HEAD
 git log --oneline
 
 ## Release-Tag &quot;v0.1.0&quot; auf dem aktuellen Commit erzeugen
 git tag -a v0.1.0 &lt;hash-ID des aktuellen Commits&gt; -m &quot;Release v0.1.0&quot;
 
-## den releases-Branch pushen
-git push --set-upstream origin releases
-
 ## den Tag pushen
 git push --tags
 </code></pre>
-<p>Es gibt praktisch viele verschiedene Git-Workflows, die das Erzeugen von Releases verschieden regeln. Einen Tag zum entsprechenden Commit zuzuweisen, ist bereits eine ausreichende Maßnahme, um einen Commit klar als Release zu markieren. Das Verwenden von Release-Branches dient darüberhinaus oft dazu, speziell am jeweiligen Release (also mit jeweils einem eigenen Release-Branch pro Release) entwickeln zu können, um unabhängig vom Haupt-Arbeitsbranch letzte Probleme am Release zu beheben: Das ist insbesondere für größere Entwicklerteams eine geeignete Methode, die Arbeit verschiedener Teams voneinander zu trennen. In kleineren Projekten dagegen ist das Zuweisen von Tags oder das Trennen von einem Haupt-Arbeitsbranch von einem Release-Branch eine völlige ausreichende Maßnahme für den Release-Workflow.</p>
+<p>Mit dem Tag ist nun klar definiert, welcher Commit den Release-Zustand der Website darstellt.</p>
+<p>An dieser Stelle könnte man nun entweder auf dem <code>master</code> weiterarbeiten und kurz vor dem nächsten Release den dann aktuellen <code>master</code>-Stand erneut in den <code>release</code>-Branch mergen, um entsprechend die nächsten Release vorzubereiten. Es ist aber auch sinnvoll, Bug-Fixes und Änderungen, die zur Herstellung eines Releases auf dem <code>release</code>-Branch vorgenommen worden sind, unverzüglich danach wieder in den <code>master</code> einzuspeisen. Ansonsten bekommt der <code>master</code>-Branch diese Änderungen nie zu sehen.</p>
+<p>Es gibt praktisch viele verschiedene Git-Workflows, die auch das Erzeugen von Releases verschieden regeln. Einen Tag zum entsprechenden Commit auf dem Arbeitsbranch zuzuweisen, ist bereits eine ausreichende Maßnahme, um einen Commit klar als Release zu markieren. Einen oder mehrere Release-Branches zu verwenden oder darüberhinaus auch noch Branches für einzelne Bugfixes ist dagegen eine Strategie, die sich für größere Entwicklerteams eignet, in denen die Arbeit untereinander verteilt und also auch parallel an verschiedenen Problemen gearbeitet werden kann. Eine kleine Übersicht über verschiedene Git-Workflows findet ihr <a href="https://web.archive.org/web/20230609105102/https://about.gitlab.com/topics/version-control/what-is-git-workflow/">hier</a>.</p>
 <p>Das ist das Ende des zweiten Szenarios. Es ist zu sehen gewesen, wie die täglichen Abläufe im kollaborativen Arbeiten mit Git aussehen, welche Befehle dabei immer wieder zum Einsatz kommen und vor allem: dass ein Konflikt zwischen zwei Versionen einer Datei (in Git-Begriffen: zwischen zwei zu mergenden Commits) kein unbedingt zu verhindernder Ausnahmezustand ist, sondern zum kollaborativen Arbeiten mit Dateien (auch ohne Git) dazugehört. Git hält gezielt Features dafür bereit, mit dieser Situation umzugehen.</p>
 <p>Diese und die anderen Features müssen nicht zwingend über die Kommandozeile bedient werden. Im Folgenden stelle ich euch drei Tools mit grafischer Benutzeroberfläche vor. Ihr habt bis hier schon viele Befehle kennengelernt (falls noch nicht geschehen: ein Blick in den <a href="../../was-ist/">Was ist ... </a>-Abschnitt ist dafür empfohlen). Zu wissen, wie Git auf Ebene der Kommandozeile funktioniert, hilft enorm, die Funktionen dieser Tools zu verstehen.</p>
 <h2 id="tools-fur-die-arbeit-mit-lokalen-repositorien">Tools für die Arbeit mit lokalen Repositorien</h2>
