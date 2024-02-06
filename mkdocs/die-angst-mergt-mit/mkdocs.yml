@@ -1,0 +1,26 @@
+site_name: "'Die Angst mergt mit' - ein Git-Tutorial"
+nav:
+  - Intro: 'index.md'
+  - Getting started: 'getting-started.md'
+  - Was ist ... ?: 'was-ist.md'
+  - Cheat Sheets: 'cheat-sheets.md'
+  - Experimente:
+    - 1 Ein einfacher kollaborativer Git-Workflow: 'experimente/1-ein-einfacher-kollaborativer-git-workflow.md'
+    - 2 Konfigurationen: 'experimente/2-konfigurationen.md'
+    - 3 Aliase: 'experimente/3-aliase.md'
+    - upcoming --> 4 Elemente im Working Tree nicht zur History hinzufügen müssen, aber trotzdem sicher behalten (gitignore und stash): 'experimente/4-elemente-im-working-tree-nicht-zur-history-hinzufuegen-muessen-aber-trotzdem-sicher-behalten-gitignore-und-stash.md'
+    - upcoming --> 5 Branches anlegen, pushen und löschen: 'experimente/5-branches-anlegen-pushen-und-loeschen.md'
+    - upcoming --> 6 Dateien vom Index entfernen: 'experimente/6-dateien-vom-index-entfernen.md'
+    - upcoming --> 7 Fehler rückgängig machen: 'experimente/7-fehler-rueckgaengig-machen.md'
+    - upcoming --> 8 Schnelle Übersicht über ein Repo bekommen (History, Branches, HEAD): 'experimente/8-schnelle-uebersicht-ueber-ein-repo-bekommen-history-branches-HEAD.md'
+    - upcoming --> 9 Konflikte beim Mergen: 'experimente/9-konflikte-beim-mergen.md'
+    - upcoming --> 10 Mit einem detached HEAD arbeiten: 'experimente/10-mit-einem-detached-HEAD-arbeiten.md'
+    - upcoming --> 11 Mit mehreren Remote-Repositorien arbeiten: 'experimente/11-mit-mehreren-remote-repositorien-arbeiten.md'
+    - upcoming --> 12 Unterschiede zwischen Datei-Versionen anzeigen (diff und blame): 'experimente/12-unterschiede-zwischen-datei-versionen-anzeigen-diff-und-blame.md'
+    - upcoming --> 13 Geisterstunde - von unerreichbaren und baumelnden Commits: 'experimente/13-geisterstunde-von-unerreichbaren-und-baumelnden-commits.md'
+theme: 
+  name: material
+  features:
+    - navigation.tabs
+markdown_extensions:
+  - tables
