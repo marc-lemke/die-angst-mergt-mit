@@ -1,6 +1,6 @@
 # Die Angst mergt mit - ein git-Tutorial
 
-Dieses Repository enthält den aktuellen HTML-Build des gleichnamigen MkDocs-Projekt, das sich im Ordner `/mkdocs` befindet. Sinn dieser Konstruktion ist, dass das Tutorial über **github pages** unter der Adresse [https://marc-lemke.github.io/die-angst-mergt-mit/](https://marc-lemke.github.io/die-angst-mergt-mit/) zugänglich ist.
+Dieses Repository enthält den aktuellen HTML-Build des gleichnamigen MkDocs-Projekts, das sich im Ordner `/mkdocs` befindet. Sinn dieser Konstruktion ist, dass das Tutorial über **github pages** unter der Adresse [https://marc-lemke.github.io/die-angst-mergt-mit/](https://marc-lemke.github.io/die-angst-mergt-mit/) zugänglich ist.
 
 ## Requirements 
 
@@ -11,7 +11,7 @@ Zur Arbeit mit dem Repository werden Python, `pip` und die folgenden Pakete ben�
 
 ## Abläufe
 
-Editieren des MkDocs-Projekt:
+Editieren des MkDocs-Projekts:
 - `cd mkdocs/die-angst-mergt-mit`
 - `mkdocs serve`
 - Es startet ein lokaler Server, der die Änderungen in den Markdown-Dateien und in der `.yaml`-Konfigurationsdatei nach dem Speichern von Änderungen direkt anzeigt.
